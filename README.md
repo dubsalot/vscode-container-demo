@@ -22,8 +22,8 @@ This project is maintained with VS Code Remote Development and inside a containe
 
 # Developer Steps
 git clone https://dubsalot.visualstudio.com/regionsdemo/_git/regionsdemo
-code regionsdemo
-npm run start   #this will start as webserver in the copntainer that you can connect to from your PC
+code regionsdemo  #open vscode and write code
+npm run start     #this will start a webserver in the containe. You can access this website from your host OS.
 
 
 # TODO 
