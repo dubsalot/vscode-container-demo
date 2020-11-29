@@ -9,14 +9,15 @@ As of now, the application is a simple hello-world web application. If there is 
 This project is maintained with VS Code Remote Development and inside a container that will include the required development tools. For a Windows PC this requires WSL2 and Docker Desktop along with a couple VS Code extensions.
 
 1.	Visual Studio Code
-2.	Windows Subsystem for Linux  (WSL2)
-3.	Docker Desktop
+1.	Docker Desktop (Window and MAC)
+1.  Docker CE/EE and Docker Compose (Linux)
+1.	Windows Subsystem for Linux  (WSL2)   (Windows)
 
 ### VS Code Extensions
 This project is maintained with VS Code Remote Development and inside a container that will include the required development tools. For a Windows PC this requires WSL2 and Docker Desktop along with a couple VS Code extensions.
 1. [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 1. [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
-3. [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+1. [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.rem`ote-containers)
 
 
 # Developer Steps
