@@ -1,20 +1,30 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+This is a repo that will be used as a demo of yaml pipelines in Azure DevOps for Tech Exchange at Regions. It will include a multi-stage pipeline creates a build, runs some unit tests, deploys the build to multiple environments. It will possibly include some “cloud native” deployments, but the scope of the project is to demo the pipelines. 
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+# Technologies 
+As of now, the application is a simple hello-world web application. If there is time, I would like to learn Azure Functions and include that in the demo.
+1.	React with TypeScript
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+# Devloper Environment
+This project is maintained with VS Code Remote Development and inside a container that will include the required development tools. For a Windows PC this requires WSL2 and Docker Desktop along with a couple VS Code extensions.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+1.	Visual Studio Code
+2.	Windows Subsystem for Linux  (WSL2)
+3.	Docker Desktop
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+### VS Code Extensions
+This project is maintained with VS Code Remote Development and inside a container that will include the required development tools. For a Windows PC this requires WSL2 and Docker Desktop along with a couple VS Code extensions.
+1. [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
+1. [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+3. [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+
+# Developer Steps
+git clone https://dubsalot.visualstudio.com/regionsdemo/_git/regionsdemo
+code regionsdemo
+npm run start
+
+
+# TODO 
+Add vscode steps above e.g. ctrl + shift + p
+Add some linux and mac steps
