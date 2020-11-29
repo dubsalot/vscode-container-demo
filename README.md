@@ -6,7 +6,7 @@ As of now, the application is a simple hello-world web application. If there is 
 1.	React with TypeScript
 
 # Devloper Environment
-This project is maintained with VS Code Remote Development and inside a container that will include the required development tools. For a Windows PC this requires WSL2 and Docker Desktop along with a couple VS Code extensions.
+This project is maintained with [VS Code Remote Development](https://code.visualstudio.com/docs/remote/remote-overview) and inside a container that will include the required development tools. For a Windows PC this requires WSL2 and Docker Desktop along with a couple VS Code extensions.
 
 1.	Visual Studio Code
 1.	Docker Desktop (Window and MAC)
@@ -23,7 +23,7 @@ This project is maintained with VS Code Remote Development and inside a containe
 # Developer Steps
 git clone https://dubsalot.visualstudio.com/regionsdemo/_git/regionsdemo
 code regionsdemo
-npm run start
+npm run start   #this will start as webserver in the copntainer that you can connect to from your PC
 
 
 # TODO 
