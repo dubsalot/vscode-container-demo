@@ -19,6 +19,8 @@ This project is maintained with VS Code Remote Development and inside a containe
 1. [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
 1. [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.rem`ote-containers)
 
+Note: extensions can run both locally or in the container for your development environment.I find having the docker extension is useful locally where I have docker installed. However, I don't need it inside the container. That would make sense if you were running docker in docker.
+
 
 # Developer Steps
 git clone https://dubsalot.visualstudio.com/regionsdemo/_git/regionsdemo
