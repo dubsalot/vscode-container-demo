@@ -4,6 +4,7 @@ This is a repo that will be used as a demo of yaml pipelines in Azure DevOps for
 # Technologies 
 As of now, the application is a simple hello-world web application. If there is time, I would like to learn Azure Functions and include that in the demo.
 1.	React with TypeScript
+2.  dotnet core web api project
 
 # Devloper Environment
 This project is maintained with [VS Code Remote Development](https://code.visualstudio.com/docs/remote/remote-overview) and inside a container that will include the required development tools. For a Windows PC this requires WSL2 and Docker Desktop along with a couple VS Code extensions.
@@ -19,13 +20,8 @@ This project is maintained with VS Code Remote Development and inside a containe
 1. [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
 1. [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.rem`ote-containers)
 
+Note: extensions can run both locally or in the container for your development environment.I find having the docker extension is useful locally where I have docker installed. However, I don't need it inside the container. That would make sense if you were running docker in docker.
+
 
 # Developer Steps
-git clone https://dubsalot.visualstudio.com/regionsdemo/_git/regionsdemo
-code regionsdemo  #open vscode and write code
-npm run start     #this will start a webserver in the containe. You can access this website from your host OS.
-
-
-# TODO 
-Add vscode steps above e.g. ctrl + shift + p
-Add some linux and mac steps
+TODO: Add steps for "Open Container from Folder" and "Open Container from Repo"
