@@ -20,6 +20,10 @@ RUN if [ "$INSTALL_AZURE_CLI" = "true" ]; then bash /tmp/library-scripts/azcli-d
 RUN sudo apt update
 RUN sudo apt install -y npm
 
+
+
+# These comments came from the MS dotnet example. Leaving them in for reference.
+
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
