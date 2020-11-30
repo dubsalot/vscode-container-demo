@@ -19,6 +19,9 @@ RUN if [ "$INSTALL_AZURE_CLI" = "true" ]; then bash /tmp/library-scripts/azcli-d
 
 RUN sudo apt update
 RUN sudo apt install -y npm
+RUN dotnet tool install -g dotnet-aspnet-codegenerator --version 3.1.4
+RUN export PATH=$HOME/.dotnet/tools:$PATH
+
 RUN alias cls='clear'
 
 
