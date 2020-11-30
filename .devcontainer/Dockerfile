@@ -19,6 +19,7 @@ RUN if [ "$INSTALL_AZURE_CLI" = "true" ]; then bash /tmp/library-scripts/azcli-d
 
 RUN sudo apt update
 RUN sudo apt install -y npm
+RUN alias cls='clear'
 
 
 
