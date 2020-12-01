@@ -22,8 +22,6 @@ RUN sudo apt install -y npm
 RUN dotnet tool install -g dotnet-aspnet-codegenerator --version 3.1.4
 RUN export PATH=$HOME/.dotnet/tools:$PATH
 
-RUN alias cls='clear'
-
 
 
 # These comments came from the MS dotnet example. Leaving them in for reference.
