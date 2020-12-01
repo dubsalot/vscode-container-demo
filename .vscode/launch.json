@@ -9,16 +9,16 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/webapp/bin/Debug/netcoreapp3.1/webapp.dll",
+            "program": "${workspaceFolder}/webui/bin/Debug/netcoreapp3.1/webui.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/webapp",
+            "cwd": "${workspaceFolder}/webui",
             "console": "internalConsole",
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/webapp/Views"
+                "/Views": "${workspaceFolder}/webui/Views"
             }
         }
     ]
