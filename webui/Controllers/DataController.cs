@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace webui.Controllers
 {
-    [Route("[controller]")]
+    
     [ApiController]
     public class DataController : ControllerBase
     {
         [HttpGet]
+        [Route("[controller]")]
         public IEnumerable<Person> Get()
         {
             return new List<Person> {  
@@ -21,6 +22,13 @@ namespace webui.Controllers
             };
 
         }
+
+        [HttpGet]
+        [Route("[controller]/[action]")]
+        public OSInfo GetOSInfo()
+        {
+            return new OSInfo{ Description = System.Runtime.InteropServices.RuntimeInformation.OSDescription };
+        }
     }
 
     public class Person
@@ -28,5 +36,10 @@ namespace webui.Controllers
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Guid Id { get; internal set; }
+    }
+
+    public class OSInfo
+    {
+        public string Description { get; set; }
     }
 }
