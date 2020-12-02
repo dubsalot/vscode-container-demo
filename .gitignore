@@ -1,0 +1,3 @@
+#ignore all vscode folders and vs folders
+.vs/
+.vscode/
