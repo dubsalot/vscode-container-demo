@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace webui.Controllers
 {
-    
+
     [ApiController]
     public class DataController : ControllerBase
     {
@@ -15,9 +15,9 @@ namespace webui.Controllers
         [Route("[controller]")]
         public IEnumerable<Person> Get()
         {
-            return new List<Person> {  
-                new Person { Id = System.Guid.NewGuid(), FirstName  = "Tom", LastName = "Worthy" }, 
-                new Person { Id = System.Guid.NewGuid(), FirstName  = "Lan", LastName = "Kemple" }, 
+            return new List<Person> {
+                new Person { Id = System.Guid.NewGuid(), FirstName  = "Tom", LastName = "Worthy" },
+                new Person { Id = System.Guid.NewGuid(), FirstName  = "Lan", LastName = "Kemple" },
                 new Person { Id = System.Guid.NewGuid(), FirstName  = "Mark", LastName = "Rich" }
             };
 
@@ -25,9 +25,15 @@ namespace webui.Controllers
 
         [HttpGet]
         [Route("[controller]/[action]")]
-        public OSInfo GetOSInfo()
+        public OSInfo GetSystemInfo()
         {
-            return new OSInfo{ Description = System.Runtime.InteropServices.RuntimeInformation.OSDescription };
+            return new OSInfo
+            {
+                OSDescription = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
+                FrameworkDescription = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription,
+                OSArchitecture = System.Runtime.InteropServices.RuntimeInformation.OSArchitecture.ToString(),
+                ProcessorArchitecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString()
+            };
         }
     }
 
@@ -40,6 +46,9 @@ namespace webui.Controllers
 
     public class OSInfo
     {
-        public string Description { get; set; }
+        public string OSDescription { get; set; }
+        public string OSArchitecture { get; set; }
+        public string ProcessorArchitecture { get; set; }
+        public string FrameworkDescription { get; set; }
     }
 }
