@@ -1,5 +1,5 @@
 # Introduction 
-This is a repo that will be used as a demo of yaml pipelines in Azure DevOps for Tech Exchange at Regions. It will include a multi-stage pipeline creates a build, runs some unit tests, deploys the build to multiple environments. It will possibly include some “cloud native” deployments, but the scope of the project is to demo the pipelines. 
+This is a repo that will be used as a demo of yaml pipelines in Azure DevOps for Tech Exchange. It will include a multi-stage pipeline creates a build, runs some unit tests, deploys the build to multiple environments. It will possibly include some “cloud native” deployments, but the scope of the project is to demo the pipelines. 
 
 # Technologies 
 As of now, the application is a simple hello-world web application. If there is time, I would like to learn Azure Functions and include that in the demo.
