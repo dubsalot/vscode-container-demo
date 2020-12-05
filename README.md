@@ -18,7 +18,7 @@ This project is maintained with [VS Code Remote Development](https://code.visual
 This project is maintained with VS Code Remote Development and inside a container that will include the required development tools. For a Windows PC this requires WSL2 and Docker Desktop along with a couple VS Code extensions.
 1. [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 1. [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
-1. [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.rem`ote-containers)
+1. [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 Note: extensions can run both locally or in the container for your development environment.I find having the docker extension is useful locally where I have docker installed. However, I don't need it inside the container. That would make sense if you were running docker in docker.
 
