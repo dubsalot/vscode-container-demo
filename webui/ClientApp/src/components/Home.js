@@ -38,8 +38,8 @@ export class Home extends Component {
     static renderOSInfoMessage(data) {
         return (
             <div>
-            This dotnet core app is running in: <span className="osinfo">{data.osDescription}</span><br />
-                OS: {data.osArchitecture}  - Proc: {data.processorArchitecture}  - .net: {data.frameworkDescription}
+            OS: <span className="osinfo">{data.osDescription}</span><br />
+            OS Arch: {data.osArchitecture}  - Proc Arch: {data.processorArchitecture}  - .net: {data.frameworkDescription}
             </div>
         );
     }
