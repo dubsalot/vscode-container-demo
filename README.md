@@ -10,7 +10,7 @@ The app is a .net core 3.1 app with React and a couple of JSON services. While t
 
 
 # Developer Environment
-This project was created with a Linux container that has contains all the tools you need as a developer for this app. The [VS Code Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) extension is what enables this method of development.
+This project was created with a Linux container that contains all the tools you need as a developer for this app. The [VS Code Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) extension is what enables this method of development.
 
 The goal is: Anyone with vscode and a docker host can open this code base and immediately start contributing without the hassle of installing tons of dependencies.
 
@@ -25,15 +25,15 @@ Initial development was done on a Windows PC in a Linux container. It will work 
 
 
 **Note:** 
-- * Find something for your Linux distrubution
-- ** WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.
+- \* Find something for your Linux distrubution
+- \*\* WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.
 
 
 #### VS Code Extensions
 Technically, you only need the Remote Containers extension, but the others are useful. Extensions will run locally or in the container for your development environment. You can grab all 3 remote extensions at once by installing [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 
 
-**Note:** Local vs. Remote extension is an important detail. For example, if you are developing a C# application, the OmniSharp extension would be installed in the container because that is where the C#/.net work is being done. On the other hand, other extensions like Themes and Remote Container are installed locally.
+Local vs. Remote extension is an important detail. For example, if you are developing a C# application, the OmniSharp extension would be installed in the container because that is where the C#/.net work is being done. On the other hand, other extensions like Themes and Remote Container are installed locally.
 1. [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 1. [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
 1. [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
@@ -51,10 +51,10 @@ ctrl + shift + p
     -> Open
 ```
 
-**Note:** if you 'type code vscode-container-demo' to open the folder on startup, vscode will detect the .devcontainer folder and ask you if you want to open the folder in a container. Either way is fine.
+If you 'type code vscode-container-demo' to open the folder on startup, vscode will detect the .devcontainer folder and ask you if you want to open the folder in a container. Either way is fine.
 
 
-#### Have fun and Experiment
+# Have fun and Experiment
 Note that you can also try Ctrl+Shift+p -> [Remote Containers: Open Repository in Container Volume](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-a-git-repository-or-github-pr-in-an-isolated-container-volume)
 
 Microsoft has provided [samples that you can try](https://code.visualstudio.com/docs/remote/containers#_quick-start-try-a-development-container)
