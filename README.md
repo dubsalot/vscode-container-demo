@@ -18,16 +18,13 @@ Initial development was done on a Windows PC in a Linux container. It will work 
 
 1.	Visual Studio Code - [https://code.visualstudio.com/](https://code.visualstudio.com/)
 1.	Docker Desktop (Window and MAC) [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
-1.  Docker CE/EE and Docker Compose (Linux*) [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/) 
-1.	Windows Subsystem for Linux (Windows**)  [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+1.  Docker CE/EE and Docker Compose (Linux<sup>*</sup>) [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/) 
+1.	Windows Subsystem for Linux (Windows<sup>**</sup>)  [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
-
-
-
-**Note:**  
-
-\* Find something for your Linux distrubution  
-\*\* WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.  
+<sup><sup>
+\* &nbsp;  You'll need to find something compatible with your Linux distrubution  
+** WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.  
+</sup></sup>
 
 
 
@@ -61,7 +58,7 @@ Note that you can also try Ctrl+Shift+p -> [Remote Containers: Open Repository i
 
 Microsoft has provided [samples that you can try](https://code.visualstudio.com/docs/remote/containers#_quick-start-try-a-development-container)
 
-You can also use docker compose to run multiple containers. For example, maybe your client side app is in a container and your API is in a separate container.
+You can also use [docker compose](https://docs.docker.com/compose/install/) to run multiple containers. For example, maybe your client side app is in a container and your API is in a separate container.
 
 
 You should also try the other methods of Remote development. For example, you can develop and debug your codebase in WSL2 from Windows like so:
