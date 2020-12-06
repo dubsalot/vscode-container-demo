@@ -19,7 +19,7 @@ Initial development was done on a Windows PC in a Linux container. It will work 
 1.	Visual Studio Code - [https://code.visualstudio.com/](https://code.visualstudio.com/)
 1.	Docker Desktop (Window and MAC) [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
 1.  Docker CE/EE and Docker Compose<sup>*</sup> [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/) 
-1.	Windows Subsystem for LinuxWindows<sup>**</sup> [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+1.	Windows Subsystem for Linux<sup>**</sup> [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 <sup><sup>
 \* &nbsp;  You'll need to find something compatible with your Linux distrubution  
