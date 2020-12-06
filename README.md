@@ -29,14 +29,18 @@ Initial development was done on a Windows PC in a Linux container. It will work 
 
 
 #### VS Code Extensions
-Technically, you only need the Remote Containers extension, but the others are useful. Extensions will run locally or in the container for your development environment. You can grab all 3 remote extensions at once by installing [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
+Technically, you only need the Remote Containers extension, but the others are useful. Extensions will run locally or in the container for your development environment. You can grab all 3 remote extensions at once by installing [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack).
 
 
 Local vs. Remote extension is an important detail. For example, if you are developing a C# application, the OmniSharp extension would be installed in the container because that is where the C#/.net work is being done. On the other hand, other extensions like Themes and Remote Container are installed locally.
-1. [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
-1. [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+
+Extension needed for remote container development
 1. [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
+Other useful extensions for remote development with vscode
+1. [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+1. [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
+1. [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 
 
 # Steps to Begin Coding
