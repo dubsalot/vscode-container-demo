@@ -24,4 +24,14 @@ Note: extensions can run both locally or in the container for your development e
 
 
 # Developer Steps
-TODO: Add steps for "Open Container from Folder" and "Open Container from Repo"
+
+```shell
+git clone https://github.com/dubsalot/vscode-container-demo
+code
+ctrl + shift + p 
+    -> select Remote Containers: Open Folder in Remote Container 
+    -> Browse to folder above and select vscode-container-demo 
+    -> Open
+```
+
+:rocket: Happy Coding!
