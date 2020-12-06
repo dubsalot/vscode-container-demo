@@ -18,8 +18,8 @@ Initial development was done on a Windows PC in a Linux container. It will work 
 
 1.	Visual Studio Code - [https://code.visualstudio.com/](https://code.visualstudio.com/)
 1.	Docker Desktop (Window and MAC) [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
-1.  Docker CE/EE and Docker Compose (Linux<sup>*</sup>) [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/) 
-1.	Windows Subsystem for Linux (Windows<sup>**</sup>)  [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+1.  Docker CE/EE and Docker Compose<sup>*</sup> [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/) 
+1.	Windows Subsystem for LinuxWindows<sup>**</sup> [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 <sup><sup>
 \* &nbsp;  You'll need to find something compatible with your Linux distrubution  
@@ -53,7 +53,7 @@ ctrl + shift + p
 If you 'type code vscode-container-demo' to open the folder on startup, vscode will detect the .devcontainer folder and ask you if you want to open the folder in a container. Either way is fine.
 
 
-# Have fun and Experiment
+# Have Fun and Experiment
 Note that you can also try Ctrl+Shift+p -> [Remote Containers: Open Repository in Container Volume](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-a-git-repository-or-github-pr-in-an-isolated-container-volume)
 
 Microsoft has provided [samples that you can try](https://code.visualstudio.com/docs/remote/containers#_quick-start-try-a-development-container)
