@@ -56,22 +56,19 @@ export class Home extends Component {
         return (
             <div>
 
-                <div className="jumbotron">
-                    <div className="row">
-                        <div className="col-8">
-                            <h1 className="display-4">Hello, TechExchange!</h1>
-                            <div className="lead">{osinfocontent}</div>
-                        </div>
-                        <div className="col-4">
-                            <img className="logo" alt="vscode and docker logo" src="/vscodedocker.png" />
-                        </div>
+                <div className="jumbotron d-flex flex-column justify-content-between">
+                    <div className="p-2 d-flex flex-row justify-content-between">
+                        <div className="p-2"><h1 className="display-4">Hello, TechExchange!</h1></div>
+                        <div className="p-2"><img className="logo" alt="vscode and docker logo" src="/vscodedocker.png" /></div>
+                    </div>
+                    <div className="p-2">
+                        <div className="lead">{osinfocontent}</div>
                     </div>
                 </div>
                 <br />
                 <br />
                 <h2 id="tabelLabel">People</h2>
-                <p>demonstration of data returned from a service</p>
-
+                <p>data returned from a service</p>
                 {peoplecontent}
             </div>
         );
