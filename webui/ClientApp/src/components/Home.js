@@ -39,7 +39,7 @@ export class Home extends Component {
         return (
             <div>
             OS: <span className="osinfo">{data.osDescription}</span><br />
-            OS Arch: {data.osArchitecture}  - Proc Arch: {data.processorArchitecture}  - .net: {data.frameworkDescription}
+            <strong>OS Arch:</strong> {data.osArchitecture}  <strong>Proc Arch:</strong> {data.processorArchitecture} <strong>.net:</strong> {data.frameworkDescription}
             </div>
         );
     }
