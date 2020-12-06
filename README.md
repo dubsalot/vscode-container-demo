@@ -25,8 +25,8 @@ Initial development was done on a Windows PC in a Linux container. It will work 
 
 
 **Note:** 
-- \* Find something for your Linux distrubution
-- \*\* WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.
+\* Find something for your Linux distrubution
+\*\* WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.
 
 
 #### VS Code Extensions
@@ -62,7 +62,7 @@ Microsoft has provided [samples that you can try](https://code.visualstudio.com/
 You can also use docker compose to run multiple containers. For example, maybe your client side app is in a container and your API is in a separate container.
 
 
-You should also try the other methods of Remote development. For example, you can develop and debug your cod ebase in WSL2 from Windows like so:
+You should also try the other methods of Remote development. For example, you can develop and debug your codebase in WSL2 from Windows like so:
 ```
 code --remote wsl+Ubuntu-20.04 /mnt/d/path/to/vscode-container-demo
 
