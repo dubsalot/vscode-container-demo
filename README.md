@@ -25,8 +25,10 @@ Initial development was done on a Windows PC in a Linux container. It will work 
 
 
 **Note:** 
-\* Find something for your Linux distrubution
-\*\* WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.
+\* Find something for your Linux distrubution  
+
+\*\* WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.  
+
 
 
 #### VS Code Extensions
