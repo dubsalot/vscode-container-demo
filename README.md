@@ -39,7 +39,7 @@ Local vs. Remote extension is an important detail. For example, if you are devel
 
 
 
-# Developer Steps
+# Steps to Begin Coding
 
 ```
 git clone https://github.com/dubsalot/vscode-container-demo
@@ -50,7 +50,7 @@ ctrl + shift + p
     -> Open
 ```
 
-If you 'type code vscode-container-demo' to open the folder on startup, vscode will detect the .devcontainer folder and ask you if you want to open the folder in a container. Either way is fine.
+If you type code 'vscode-container-demo' to open the folder on startup, vscode will detect the .devcontainer folder and ask you if you want to open the folder in a container. Either way is fine, but be wary of making changes within folder mounted in the container. The container [might not realize a file changed](https://forums.docker.com/t/file-system-events-not-correctly-propagating-from-host-to-container/15201).
 
 
 # Have Fun and Experiment
@@ -61,7 +61,7 @@ Microsoft has provided [samples that you can try](https://code.visualstudio.com/
 You can also use [docker compose](https://docs.docker.com/compose/install/) to run multiple containers. For example, maybe your client side app is in a container and your API is in a separate container.
 
 
-You should also try the other methods of Remote development. For example, you can develop and debug your codebase in WSL2 from Windows like so:
+You should also try the other methods of Remote development like WSL directly or SSH. For example, you can develop and debug your codebase in WSL2 from Windows like so:
 ```
 code --remote wsl+Ubuntu-20.04 /mnt/d/path/to/vscode-container-demo
 
