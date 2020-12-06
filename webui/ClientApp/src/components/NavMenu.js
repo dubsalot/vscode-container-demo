@@ -26,7 +26,7 @@ export class NavMenu extends Component {
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
           <Container>
-            <NavbarBrand tag={Link} to="/">regions demo</NavbarBrand>
+            <NavbarBrand tag={Link} to="/">vscode remote container demo</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
           </Container>
         </Navbar>
