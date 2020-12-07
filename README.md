@@ -74,4 +74,4 @@ code --remote wsl+Ubuntu-20.04 /mnt/d/path/to/vscode-container-demo
 
 ```
 
-:rocket: Happy Coding! :rocket:
+:rocket: Happy Coding!
