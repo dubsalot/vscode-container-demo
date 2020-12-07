@@ -52,7 +52,10 @@ ctrl + shift + p for Windows & Linux or command + shift + p for mac
     -> select Remote Containers: Open Folder in Container 
     -> Browse to folder above and select vscode-container-demo 
     -> Open
-```
+```  
+
+When the vscode loads this for the first time, it will prompt you to add required assests. Click "Yes."  This will add a .vscode folder launch.json and tasks.json. This can be added to source control, but it's more of a team decision to do so. Since I'm creating this in a silo, I left it out of source control.  
+
 
 If you type code 'vscode-container-demo' to open the folder on startup, vscode will detect the .devcontainer folder and ask you if you want to open the folder in a container. Either way is fine, but be wary of making changes within folder mounted in the container. The container [might not realize a file changed](https://forums.docker.com/t/file-system-events-not-correctly-propagating-from-host-to-container/15201).
 
