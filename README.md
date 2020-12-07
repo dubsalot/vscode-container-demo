@@ -14,10 +14,10 @@ This project was created with a Linux container that contains all the tools you 
 
 The goal is: Anyone with vscode and a docker host can open this code base and immediately start contributing without the hassle of installing tons of dependencies.
 
-Initial development was done on a Windows PC in a Linux container. It will work on Linux or Mac in theory, but admittedly I have not tried it.
+Initial development was done on a Windows PC in a Linux container, but can also be done on a Mac or Linux PC.
 
 1.	Visual Studio Code - [https://code.visualstudio.com/](https://code.visualstudio.com/)
-1.	Docker Desktop (Window and MAC) [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+1.	Docker Desktop (Windows and macOS) [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
 1.  Docker CE/EE and Docker Compose<sup>*</sup> [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/) 
 1.	Windows Subsystem for Linux<sup>**</sup> [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
@@ -47,8 +47,8 @@ Other useful extensions for remote development with vscode
 
 ```
 git clone https://github.com/dubsalot/vscode-container-demo
-code
-ctrl + shift + p 
+open vscode
+ctrl + shift + p for Windows & Linux or command + shift + p for mac
     -> select Remote Containers: Open Folder in Remote Container 
     -> Browse to folder above and select vscode-container-demo 
     -> Open
@@ -58,7 +58,7 @@ If you type code 'vscode-container-demo' to open the folder on startup, vscode w
 
 
 # Have Fun and Experiment
-Note that you can also try Ctrl+Shift+p -> [Remote Containers: Open Repository in Container Volume](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-a-git-repository-or-github-pr-in-an-isolated-container-volume)
+Note that you can also try Ctrl/Cmd+Shift+p -> [Remote Containers: Open Repository in Container Volume](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-a-git-repository-or-github-pr-in-an-isolated-container-volume)
 
 Microsoft has provided [samples that you can try](https://code.visualstudio.com/docs/remote/containers#_quick-start-try-a-development-container)
 

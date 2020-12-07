@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.140.1/containers/dotnetcore
 {
-	"name": "regionsdemo app",
+	"name": "remote container demo app",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": { 
@@ -50,7 +50,7 @@
 	//      "mounts": [ "source=${env:HOME}${env:USERPROFILE}/.aspnet/https,target=/home/vscode/.aspnet/https,type=bind" ],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "dotnet restore /workspaces/regionsdemo/webui/webui.csproj",
+	"postCreateCommand": "dotnet restore /workspaces/vscode-container-demo/webui/webui.csproj",
 
 	// Comment this out to connect as a root instead.
 	"remoteUser": "vscode"
