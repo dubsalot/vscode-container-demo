@@ -1,10 +1,3 @@
-# Note for GH 
-
-If you're looking at my repos, I assumed you have access to: https://github.com/dubsalot/azdo-extensions
-
-That's the one that would be the most pertinent for this scenario, but if you do not have access let me know. It's not a public repo. I just moved it over from AzDo.
-Dropping this message here because it's the only public repo.
-
 # Introduction
 This repo is a basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
 
