@@ -22,9 +22,14 @@ az deployment group create --name blanktemplate --resource-group myResourceGroup
 #   lesson 2
 az deployment group create --name addstorage --resource-group myResourceGroup --template-file .\azuredeploy.json
 
-#   lesson 3
+#   lesson 3.A
 #   note: the point of the lesson is to add a variable to the template. this could be passed in from pipeline
 az deployment group create --name addnameparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageName=dusbalot02212021
+
+#   lesson 3.B
+#   note: the point of the lesson is to add a variable to the template for SKU - so we can adjust per environment. this could be passed in from pipeline
+#   this time, let's pass a different sku from one of the allowed values
+az deployment group create --name addnameparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageSKU=Standard_GRS storageName=dusbalot02212021
 
 
 #az account show --query "{subscriptionId:id, tenantId:tenantId}"
@@ -201,3 +206,146 @@ az deployment group create --name addnameparameter --resource-group myResourceGr
 #           "tags": null,
 #           "type": "Microsoft.Resources/deployments"
 #       }
+
+
+
+#   Lesson 3.B - notice what happened when I accidentally changed the region to eastus but left the name the same!!
+#   We got the error below. This means that storage in eastUS must have names different than storage in another region! important note.
+#
+#   az deployment group create --name addnameparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageSKU=Standard_GRS storageName=dusbalot02212021
+#   {"error":{"code":"InvalidResourceLocation","message":"The resource 'dusbalot02212021' already exists in location 'southcentralus' in resource group 'myResourceGroup'. A resource with the same name cannot be created in location 'eastus'. Please select a new 
+#   resource name."}}
+#   az deployment group create --name addnameparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageSKU=Standard_GRS storageName=dusbalot02212021
+#   
+#   {
+#     "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addnameparameter",
+#     "location": null,
+#     "name": "addnameparameter",
+#     "properties": {
+#       "correlationId": "ea1efed7-174f-4210-92f3-d4a934e391bc",
+#       "debugSetting": null,
+#       "dependencies": [],
+#       "duration": "PT3.0535553S",
+#       "error": null,
+#       "mode": "Incremental",
+#       "onErrorDeployment": null,
+#       "outputResources": [
+#         {
+#           "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dusbalot02212021",
+#           "resourceGroup": "myResourceGroup"
+#         }
+#       ],
+#       "outputs": null,
+#       "parameters": {
+#         "storageName": {
+#           "type": "String",
+#           "value": "dusbalot02212021"
+#         },
+#         "storageSKU": {
+#           "type": "String",
+#           "value": "Standard_GRS"
+#         }
+#       },
+#       "parametersLink": null,
+#       "providers": [
+#         {
+#           "id": null,
+#           "namespace": "Microsoft.Storage",
+#           "registrationPolicy": null,
+#           "registrationState": null,
+#           "resourceTypes": [
+#             {
+#               "aliases": null,
+#               "apiProfiles": null,
+#               "apiVersions": null,
+#               "capabilities": null,
+#               "defaultApiVersion": null,
+#               "locationMappings": null,
+#               "locations": [
+#                 "southcentralus"
+#               ],
+#               "properties": null,
+#               "resourceType": "storageAccounts"
+#             }
+#           ]
+#         }
+#       ],
+#       "provisioningState": "Succeeded",
+#       "templateHash": "4209940267245455050",
+#       "templateLink": null,
+#       "timestamp": "2021-02-21T20:37:02.448424+00:00",
+#       "validatedResources": null
+#     },
+#     "resourceGroup": "myResourceGroup",
+#     "tags": null,
+#     "type": "Microsoft.Resources/deployments"
+#   }
+
+
+
+# Lesson 3.C - gave new name for deployment annd also changed sku - I'm probablly gonna get hammered on the bill :D
+#az deployment group create --name deploymentForSkuChange --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageSKU=Standard_RAGRS storageName=dusbalot02212021
+#    
+#    {
+#      "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/deploymentForSkuChange",
+#      "location": null,
+#      "name": "deploymentForSkuChange",
+#      "properties": {
+#        "correlationId": "e851d4e9-2d8a-46cc-8e88-25b481ba4877",
+#        "debugSetting": null,
+#        "dependencies": [],
+#        "duration": "PT2.7714918S",
+#        "error": null,
+#        "mode": "Incremental",
+#        "onErrorDeployment": null,
+#        "outputResources": [
+#          {
+#            "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dusbalot02212021",
+#            "resourceGroup": "myResourceGroup"
+#          }
+#        ],
+#        "outputs": null,
+#        "parameters": {
+#          "storageName": {
+#            "type": "String",
+#            "value": "dusbalot02212021"
+#          },
+#          "storageSKU": {
+#            "type": "String",
+#            "value": "Standard_RAGRS"
+#          }
+#        },
+#        "parametersLink": null,
+#        "providers": [
+#          {
+#            "id": null,
+#            "namespace": "Microsoft.Storage",
+#            "registrationPolicy": null,
+#            "registrationState": null,
+#            "resourceTypes": [
+#              {
+#                "aliases": null,
+#                "apiProfiles": null,
+#                "apiVersions": null,
+#                "capabilities": null,
+#                "defaultApiVersion": null,
+#                "locationMappings": null,
+#                "locations": [
+#                  "southcentralus"
+#                ],
+#                "properties": null,
+#                "resourceType": "storageAccounts"
+#              }
+#            ]
+#          }
+#        ],
+#        "provisioningState": "Succeeded",
+#        "templateHash": "4209940267245455050",
+#        "templateLink": null,
+#        "timestamp": "2021-02-21T20:43:55.967217+00:00",
+#        "validatedResources": null
+#      },
+#      "resourceGroup": "myResourceGroup",
+#      "tags": null,
+#      "type": "Microsoft.Resources/deployments"
+#    }
