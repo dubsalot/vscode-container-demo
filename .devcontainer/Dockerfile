@@ -4,6 +4,9 @@
 ARG VARIANT="3.1"
 FROM mcr.microsoft.com/vscode/devcontainers/dotnetcore:0-${VARIANT}
 
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+
 # [Option] Install Node.js
 ARG INSTALL_NODE="true"
 ARG NODE_VERSION="lts/*"
