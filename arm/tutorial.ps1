@@ -73,6 +73,8 @@ az deployment group create --name addstorage --resource-group myResourceGroup --
 
 #az deployment group create --name addstorage --resource-group myResourceGroup --template-file .\azuredeploy.json
 ##    took about 1 minute to run.
+##    running a subsequent time resulted in no error - not sure if it would apply changes and I should test that 
+##    or see if there is an "update" like there is a "create"  :shrug:
 # 
 #    {
 #        "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addstorage",
