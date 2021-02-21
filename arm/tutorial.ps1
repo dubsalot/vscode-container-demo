@@ -72,27 +72,56 @@ az deployment group create --name addstorage --resource-group myResourceGroup --
 
 
 #az deployment group create --name addstorage --resource-group myResourceGroup --template-file .\azuredeploy.json
+##    took about 1 minute to run.
+# 
 #    {
 #        "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addstorage",
 #        "location": null,
 #        "name": "addstorage",
 #        "properties": {
-#          "correlationId": "b75620de-db0f-4076-93df-4f5624458049",
+#          "correlationId": "b47b654f-f1e5-4327-8935-f1b940798bfb",
 #          "debugSetting": null,
 #          "dependencies": [],
-#          "duration": "PT1.7013893S",
+#          "duration": "PT22.114746S",
 #          "error": null,
 #          "mode": "Incremental",
 #          "onErrorDeployment": null,
-#          "outputResources": [],
+#          "outputResources": [
+#            {
+#              "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dusbalot02212021",
+#              "resourceGroup": "myResourceGroup"
+#            }
+#          ],
 #          "outputs": null,
 #          "parameters": null,
 #          "parametersLink": null,
-#          "providers": [],
+#          "providers": [
+#            {
+#              "id": null,
+#              "namespace": "Microsoft.Storage",
+#              "registrationPolicy": null,
+#              "registrationState": null,
+#              "resourceTypes": [
+#                {
+#                  "aliases": null,
+#                  "apiProfiles": null,
+#                  "apiVersions": null,
+#                  "capabilities": null,
+#                  "defaultApiVersion": null,
+#                  "locationMappings": null,
+#                  "locations": [
+#                    "southcentralus"
+#                  ],
+#                  "properties": null,
+#                  "resourceType": "storageAccounts"
+#                }
+#              ]
+#            }
+#          ],
 #          "provisioningState": "Succeeded",
-#          "templateHash": "11481920352792298114",
+#          "templateHash": "2954769913832277148",
 #          "templateLink": null,
-#          "timestamp": "2021-02-21T19:37:12.967401+00:00",
+#          "timestamp": "2021-02-21T19:47:53.500745+00:00",
 #          "validatedResources": null
 #        },
 #        "resourceGroup": "myResourceGroup",
