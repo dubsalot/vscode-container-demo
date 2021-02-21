@@ -4,8 +4,9 @@
 #
 #   Part 1: empty resource group   https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-first-template?tabs=azure-cli
 #   Part 2: storage resource       https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-resource?tabs=azure-powershell
-#   Part 3: template variables     https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-parameters?tabs=azure-cli
+#   Part 3: template paramers      https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-parameters?tabs=azure-cli
 #   Part 4: template functions     https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-functions?tabs=azure-powershell
+#   Part 5: template variables     https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-variables?tabs=azure-powershell
 #
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -37,6 +38,8 @@ az deployment group create --name addnameparameter --resource-group myResourceGr
 #   note: the only real change here is to the azuredeploy.json file itself.
 az deployment group create --name addlocationparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageName=dusbalot02212021
 
+#   lesson 5 - variables + use uniqueName() to create a resourceName
+az deployment group create --name addnamevariable --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalotdev storageSKU=Standard_LRS
 
 
 
@@ -429,3 +432,76 @@ az deployment group create --name addlocationparameter --resource-group myResour
 #               "tags": null,
 #               "type": "Microsoft.Resources/deployments"
 #           }
+
+
+
+
+#  az deployment group create --name addnamevariable --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalotdev storageSKU=Standard_LRS
+#  
+#  {
+#    "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addnamevariable",
+#    "location": null,
+#    "name": "addnamevariable",
+#    "properties": {
+#      "correlationId": "1fd40708-01b7-4190-88e7-cff0846b450c",
+#      "debugSetting": null,
+#      "dependencies": [],
+#      "duration": "PT22.0788553S",
+#      "error": null,
+#      "mode": "Incremental",
+#      "onErrorDeployment": null,
+#      "outputResources": [
+#        {
+#          "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dubsalotdevtogqz2cvhhx3k",
+#          "resourceGroup": "myResourceGroup"
+#        }
+#      ],
+#      "outputs": null,
+#      "parameters": {
+#        "location": {
+#          "type": "String",
+#          "value": "southcentralus"
+#        },
+#        "storagePrefix": {
+#          "type": "String",
+#          "value": "dubsalotdev"
+#        },
+#        "storageSKU": {
+#          "type": "String",
+#          "value": "Standard_LRS"
+#        }
+#      },
+#      "parametersLink": null,
+#      "providers": [
+#        {
+#          "id": null,
+#          "namespace": "Microsoft.Storage",
+#          "registrationPolicy": null,
+#          "registrationState": null,
+#          "resourceTypes": [
+#            {
+#              "aliases": null,
+#              "apiProfiles": null,
+#              "apiVersions": null,
+#              "capabilities": null,
+#              "defaultApiVersion": null,
+#              "locationMappings": null,
+#              "locations": [
+#                "southcentralus"
+#              ],
+#              "properties": null,
+#              "resourceType": "storageAccounts"
+#            }
+#          ]
+#        }
+#      ],
+#      "provisioningState": "Succeeded",
+#      "templateHash": "15825304833025029711",
+#      "templateLink": null,
+#      "timestamp": "2021-02-21T22:03:57.291496+00:00",
+#      "validatedResources": null
+#    },
+#    "resourceGroup": "myResourceGroup",
+#    "tags": null,
+#    "type": "Microsoft.Resources/deployments"
+#  }
