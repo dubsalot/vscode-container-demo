@@ -2,9 +2,10 @@
 #   Azure CLI for windows, linux, mac:  https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #
-#   Part 1: https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-first-template?tabs=azure-cli
-#   Part 2: https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-resource?tabs=azure-powershell
-#   Part 3: https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-parameters?tabs=azure-cli
+#   Part 1: empty resource group   https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-first-template?tabs=azure-cli
+#   Part 2: storage resource       https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-resource?tabs=azure-powershell
+#   Part 3: template variables     https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-parameters?tabs=azure-cli
+#   Part 4: template functions     https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-functions?tabs=azure-powershell
 #
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -30,6 +31,13 @@ az deployment group create --name addnameparameter --resource-group myResourceGr
 #   note: the point of the lesson is to add a variable to the template for SKU - so we can adjust per environment. this could be passed in from pipeline
 #   this time, let's pass a different sku from one of the allowed values
 az deployment group create --name addnameparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageSKU=Standard_GRS storageName=dusbalot02212021
+
+
+#   lesson 4 - use resourceGroup().location to get the location of the resource group to use for the location of the storage account
+#   note: the only real change here is to the azuredeploy.json file itself.
+az deployment group create --name addlocationparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageName=dusbalot02212021
+
+
 
 
 #az account show --query "{subscriptionId:id, tenantId:tenantId}"
@@ -349,3 +357,75 @@ az deployment group create --name addnameparameter --resource-group myResourceGr
 #      "tags": null,
 #      "type": "Microsoft.Resources/deployments"
 #    }
+
+
+#   lesson 4 - use resourceGroup().location to get the location of the resource group to use for the location of the storage account
+#   az deployment group create --name addlocationparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageName=dusbalot02212021
+
+#           {
+#               "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addlocationparameter",
+#               "location": null,
+#               "name": "addlocationparameter",
+#               "properties": {
+#                 "correlationId": "7a654870-d278-4af8-a86c-f560f2037bfb",
+#                 "debugSetting": null,
+#                 "dependencies": [],
+#                 "duration": "PT1.7908158S",
+#                 "error": null,
+#                 "mode": "Incremental",
+#                 "onErrorDeployment": null,
+#                 "outputResources": [
+#                   {
+#                     "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dusbalot02212021",
+#                     "resourceGroup": "myResourceGroup"
+#                   }
+#                 ],
+#                 "outputs": null,
+#                 "parameters": {
+#                   "location": {
+#                     "type": "String",
+#                     "value": "southcentralus"
+#                   },
+#                   "storageName": {
+#                     "type": "String",
+#                     "value": "dusbalot02212021"
+#                   },
+#                   "storageSKU": {
+#                     "type": "String",
+#                     "value": "Standard_LRS"
+#                   }
+#                 },
+#                 "parametersLink": null,
+#                 "providers": [
+#                   {
+#                     "id": null,
+#                     "namespace": "Microsoft.Storage",
+#                     "registrationPolicy": null,
+#                     "registrationState": null,
+#                     "resourceTypes": [
+#                       {
+#                         "aliases": null,
+#                         "apiProfiles": null,
+#                         "apiVersions": null,
+#                         "capabilities": null,
+#                         "defaultApiVersion": null,
+#                         "locationMappings": null,
+#                         "locations": [
+#                           "southcentralus"
+#                         ],
+#                         "properties": null,
+#                         "resourceType": "storageAccounts"
+#                       }
+#                     ]
+#                   }
+#                 ],
+#                 "provisioningState": "Succeeded",
+#                 "templateHash": "15699290035728910523",
+#                 "templateLink": null,
+#                 "timestamp": "2021-02-21T21:37:07.900149+00:00",
+#                 "validatedResources": null
+#               },
+#               "resourceGroup": "myResourceGroup",
+#               "tags": null,
+#               "type": "Microsoft.Resources/deployments"
+#           }
