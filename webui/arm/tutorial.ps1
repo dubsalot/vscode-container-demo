@@ -1,3 +1,5 @@
+# Azure CLI for windows, linux, mac:  https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+
 az login
 #az account show --query "{subscriptionId:id, tenantId:tenantId}"
 az account set --subscription d739ae26-2404-45d1-a067-0ee9779c8d8c
