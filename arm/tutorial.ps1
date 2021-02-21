@@ -7,6 +7,7 @@
 #   Part 3: template paramers      https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-parameters?tabs=azure-cli
 #   Part 4: template functions     https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-functions?tabs=azure-powershell
 #   Part 5: template variables     https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-variables?tabs=azure-powershell
+#   Part 6: template outputs       https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-outputs?tabs=azure-powershell
 #
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -40,6 +41,12 @@ az deployment group create --name addlocationparameter --resource-group myResour
 
 #   lesson 5 - variables + use uniqueName() to create a resourceName
 az deployment group create --name addnamevariable --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalotdev storageSKU=Standard_LRS
+
+#   lesson 6 - outputs to use in subsequent scripts
+$o = az deployment group create --name addoutputs --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalotdev storageSKU=Standard_LRS
+$op = [string]$o
+$ret = ConvertFrom-JSON -InputObject $op
+echo $ret.properties.outputs.storageAccountName.value
 
 
 
@@ -505,3 +512,16 @@ az deployment group create --name addnamevariable --resource-group myResourceGro
 #    "tags": null,
 #    "type": "Microsoft.Resources/deployments"
 #  }
+
+
+
+
+#   lesson 6 - outputs to use in subsequent scripts
+#   convert to psobject to work with output later
+#
+# $o = az deployment group create --name addoutputs --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalotdev storageSKU=Standard_LRS
+# $op = [string]$o
+# $ret = ConvertFrom-JSON -InputObject $op
+# echo $ret.properties.outputs.storageAccountName.value
+# output: 
+#   dubsalotdevtogqz2cvhhx3k
