@@ -1,0 +1,833 @@
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Future GitHub Action Workflow
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+#  1. az ad sp create-for-rbac --name CIServicePrincipal --role Contributor
+#     Not part of pipeline. Output from this gets stored as secrets
+#     
+#  2. az login --service-principal --username <github secret> --password <github secret> --tenant <github secret>
+#
+#  3. az account set --subscription <github secret>
+#  
+#  Run 4 & 5 in parallel
+#
+#  4. az deployment group create --name addwebapp --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalot storageSKU=Standard_LRS webAppName=dubsalot
+#  5. dotnet publish --output cibuild
+#
+#  6. cd cibuild
+#  7. az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name "dubstogqz2cvhhx3k" --debug
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#   Azure CLI for windows, linux, mac:  https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+#   Part 1: empty resource group   https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-first-template?tabs=azure-cli
+#   Part 2: storage resource       https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-resource?tabs=azure-powershell
+#   Part 3: template paramers      https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-parameters?tabs=azure-cli
+#   Part 4: template functions     https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-functions?tabs=azure-powershell
+#   Part 5: template variables     https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-variables?tabs=azure-powershell
+#   Part 6: template outputs       https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-add-outputs?tabs=azure-powershell
+#   Part 7: use exported template  https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-export-template?tabs=azure-powershell
+#   Part 8: add website            https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-quickstart-template?tabs=azure-cli
+#
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+#   lesson 1
+az account set --subscription d739ae26-2404-45d1-a067-0ee9779c8d8c
+az group create --name myResourceGroup --location "South Central US"
+az deployment group create --name blanktemplate --resource-group myResourceGroup --template-file .\azuredeploy.json
+
+#   lesson 2
+az deployment group create --name addstorage --resource-group myResourceGroup --template-file .\azuredeploy.json
+
+#   lesson 3.A
+#   note: the point of the lesson is to add a variable to the template. this could be passed in from pipeline
+az deployment group create --name addnameparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageName=dusbalot02212021
+
+#   lesson 3.B
+#   note: the point of the lesson is to add a variable to the template for SKU - so we can adjust per environment. this could be passed in from pipeline
+#   this time, let's pass a different sku from one of the allowed values
+az deployment group create --name addnameparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageSKU=Standard_GRS storageName=dusbalot02212021
+
+
+#   lesson 4 - use resourceGroup().location to get the location of the resource group to use for the location of the storage account
+#   note: the only real change here is to the azuredeploy.json file itself.
+az deployment group create --name addlocationparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageName=dusbalot02212021
+
+#   lesson 5 - variables + use uniqueName() to create a resourceName
+az deployment group create --name addnamevariable --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalotdev storageSKU=Standard_LRS
+
+#   lesson 6 - outputs to use in subsequent scripts
+$o = az deployment group create --name addoutputs --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalotdev storageSKU=Standard_LRS
+$op = [string]$o
+$ret = ConvertFrom-JSON -InputObject $op
+write-output $ret.properties.outputs.storageAccountName.values
+
+
+#   lesson 7 created app service, exported template, using it in my template
+az deployment group create --name addappserviceplan --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=store storageSKU=Standard_LRS appServicePlanName=dubsalot
+
+
+#   lesson 8 add a website
+az deployment group create --name addwebapp --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalot storageSKU=Standard_LRS webAppName=dubsalot
+
+
+
+
+
+#az account show --query "{subscriptionId:id, tenantId:tenantId}"
+#             {
+#                 "subscriptionId": "d739ae26-2404-45d1-a067-0ee9779c8d8c",
+#                 "tenantId": "f63f7542-dcd8-4a64-a45e-7186913edaf9"
+#             }
+
+# az group create --name myResourceGroup --location "South Central US"
+#                   {
+#                       "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup",
+#                       "location": "southcentralus",
+#                       "managedBy": null,
+#                       "name": "myResourceGroup",
+#                       "properties": {
+#                         "provisioningState": "Succeeded"
+#                       },
+#                       "tags": null,
+#                       "type": "Microsoft.Resources/resourceGroups"
+#                     }
+
+# az deployment group create --name blanktemplate --resource-group myResourceGroup --template-file .\azuredeploy.json
+#   {
+#      "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/blanktemplate",
+#      "location": null,
+#      "name": "blanktemplate",
+#      "properties": {
+#        "correlationId": "07fa3c2d-3ee4-4e11-9a0b-2633c2d0842e",
+#        "debugSetting": null,
+#        "dependencies": [],
+#        "duration": "PT0.7975674S",
+#        "error": null,
+#        "mode": "Incremental",
+#        "onErrorDeployment": null,
+#        "outputResources": [],
+#        "outputs": null,
+#        "parameters": null,
+#        "parametersLink": null,
+#        "providers": [],
+#        "provisioningState": "Succeeded",
+#        "templateHash": "11481920352792298114",
+#        "templateLink": null,
+#        "timestamp": "2021-02-21T18:54:42.110900+00:00",
+#        "validatedResources": null
+#      },
+#      "resourceGroup": "myResourceGroup",
+#      "tags": null,
+#      "type": "Microsoft.Resources/deployments"
+#    }
+
+
+
+#az deployment group create --name addstorage --resource-group myResourceGroup --template-file .\azuredeploy.json
+##    took about 1 minute to run.
+##    running a subsequent time resulted in no error - not sure if it would apply changes and I should test that 
+##    or see if there is an "update" like there is a "create"  :shrug:
+##    from lesson 3: this actually updates the resource if the properties changed! really cool.
+# 
+#    {
+#        "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addstorage",
+#        "location": null,
+#        "name": "addstorage",
+#        "properties": {
+#          "correlationId": "b47b654f-f1e5-4327-8935-f1b940798bfb",
+#          "debugSetting": null,
+#          "dependencies": [],
+#          "duration": "PT22.114746S",
+#          "error": null,
+#          "mode": "Incremental",
+#          "onErrorDeployment": null,
+#          "outputResources": [
+#            {
+#              "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dusbalot02212021",
+#              "resourceGroup": "myResourceGroup"
+#            }
+#          ],
+#          "outputs": null,
+#          "parameters": null,
+#          "parametersLink": null,
+#          "providers": [
+#            {
+#              "id": null,
+#              "namespace": "Microsoft.Storage",
+#              "registrationPolicy": null,
+#              "registrationState": null,
+#              "resourceTypes": [
+#                {
+#                  "aliases": null,
+#                  "apiProfiles": null,
+#                  "apiVersions": null,
+#                  "capabilities": null,
+#                  "defaultApiVersion": null,
+#                  "locationMappings": null,
+#                  "locations": [
+#                    "southcentralus"
+#                  ],
+#                  "properties": null,
+#                  "resourceType": "storageAccounts"
+#                }
+#              ]
+#            }
+#          ],
+#          "provisioningState": "Succeeded",
+#          "templateHash": "2954769913832277148",
+#          "templateLink": null,
+#          "timestamp": "2021-02-21T19:47:53.500745+00:00",
+#          "validatedResources": null
+#        },
+#        "resourceGroup": "myResourceGroup",
+#        "tags": null,
+#        "type": "Microsoft.Resources/deployments"
+#    }
+
+
+
+
+#az deployment group create --name addnameparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageName=dusbalot02212021
+#       {
+#           "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addnameparameter",
+#           "location": null,
+#           "name": "addnameparameter",
+#           "properties": {
+#             "correlationId": "70678f99-cbfa-4d8c-b8f1-287bc05c9965",
+#             "debugSetting": null,
+#             "dependencies": [],
+#             "duration": "PT2.4580198S",
+#             "error": null,
+#             "mode": "Incremental",
+#             "onErrorDeployment": null,
+#             "outputResources": [
+#               {
+#                 "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dusbalot02212021",
+#                 "resourceGroup": "myResourceGroup"
+#               }
+#             ],
+#             "outputs": null,
+#             "parameters": {
+#               "storageName": {
+#                 "type": "String",
+#                 "value": "dusbalot02212021"
+#               }
+#             },
+#             "parametersLink": null,
+#             "providers": [
+#               {
+#                 "id": null,
+#                 "namespace": "Microsoft.Storage",
+#                 "registrationPolicy": null,
+#                 "registrationState": null,
+#                 "resourceTypes": [
+#                   {
+#                     "aliases": null,
+#                     "apiProfiles": null,
+#                     "apiVersions": null,
+#                     "capabilities": null,
+#                     "defaultApiVersion": null,
+#                     "locationMappings": null,
+#                     "locations": [
+#                       "southcentralus"
+#                     ],
+#                     "properties": null,
+#                     "resourceType": "storageAccounts"
+#                   }
+#                 ]
+#               }
+#             ],
+#             "provisioningState": "Succeeded",
+#             "templateHash": "13997950872320143992",
+#             "templateLink": null,
+#             "timestamp": "2021-02-21T20:27:22.497204+00:00",
+#             "validatedResources": null
+#           },
+#           "resourceGroup": "myResourceGroup",
+#           "tags": null,
+#           "type": "Microsoft.Resources/deployments"
+#       }
+
+
+
+#   Lesson 3.B - notice what happened when I accidentally changed the region to eastus but left the name the same!!
+#   We got the error below. This means that storage in eastUS must have names different than storage in another region! important note.
+#
+#   az deployment group create --name addnameparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageSKU=Standard_GRS storageName=dusbalot02212021
+#   {"error":{"code":"InvalidResourceLocation","message":"The resource 'dusbalot02212021' already exists in location 'southcentralus' in resource group 'myResourceGroup'. A resource with the same name cannot be created in location 'eastus'. Please select a new 
+#   resource name."}}
+#   az deployment group create --name addnameparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageSKU=Standard_GRS storageName=dusbalot02212021
+#   
+#   {
+#     "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addnameparameter",
+#     "location": null,
+#     "name": "addnameparameter",
+#     "properties": {
+#       "correlationId": "ea1efed7-174f-4210-92f3-d4a934e391bc",
+#       "debugSetting": null,
+#       "dependencies": [],
+#       "duration": "PT3.0535553S",
+#       "error": null,
+#       "mode": "Incremental",
+#       "onErrorDeployment": null,
+#       "outputResources": [
+#         {
+#           "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dusbalot02212021",
+#           "resourceGroup": "myResourceGroup"
+#         }
+#       ],
+#       "outputs": null,
+#       "parameters": {
+#         "storageName": {
+#           "type": "String",
+#           "value": "dusbalot02212021"
+#         },
+#         "storageSKU": {
+#           "type": "String",
+#           "value": "Standard_GRS"
+#         }
+#       },
+#       "parametersLink": null,
+#       "providers": [
+#         {
+#           "id": null,
+#           "namespace": "Microsoft.Storage",
+#           "registrationPolicy": null,
+#           "registrationState": null,
+#           "resourceTypes": [
+#             {
+#               "aliases": null,
+#               "apiProfiles": null,
+#               "apiVersions": null,
+#               "capabilities": null,
+#               "defaultApiVersion": null,
+#               "locationMappings": null,
+#               "locations": [
+#                 "southcentralus"
+#               ],
+#               "properties": null,
+#               "resourceType": "storageAccounts"
+#             }
+#           ]
+#         }
+#       ],
+#       "provisioningState": "Succeeded",
+#       "templateHash": "4209940267245455050",
+#       "templateLink": null,
+#       "timestamp": "2021-02-21T20:37:02.448424+00:00",
+#       "validatedResources": null
+#     },
+#     "resourceGroup": "myResourceGroup",
+#     "tags": null,
+#     "type": "Microsoft.Resources/deployments"
+#   }
+
+
+
+# Lesson 3.C - gave new name for deployment annd also changed sku - I'm probablly gonna get hammered on the bill :D
+#az deployment group create --name deploymentForSkuChange --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageSKU=Standard_RAGRS storageName=dusbalot02212021
+#    
+#    {
+#      "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/deploymentForSkuChange",
+#      "location": null,
+#      "name": "deploymentForSkuChange",
+#      "properties": {
+#        "correlationId": "e851d4e9-2d8a-46cc-8e88-25b481ba4877",
+#        "debugSetting": null,
+#        "dependencies": [],
+#        "duration": "PT2.7714918S",
+#        "error": null,
+#        "mode": "Incremental",
+#        "onErrorDeployment": null,
+#        "outputResources": [
+#          {
+#            "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dusbalot02212021",
+#            "resourceGroup": "myResourceGroup"
+#          }
+#        ],
+#        "outputs": null,
+#        "parameters": {
+#          "storageName": {
+#            "type": "String",
+#            "value": "dusbalot02212021"
+#          },
+#          "storageSKU": {
+#            "type": "String",
+#            "value": "Standard_RAGRS"
+#          }
+#        },
+#        "parametersLink": null,
+#        "providers": [
+#          {
+#            "id": null,
+#            "namespace": "Microsoft.Storage",
+#            "registrationPolicy": null,
+#            "registrationState": null,
+#            "resourceTypes": [
+#              {
+#                "aliases": null,
+#                "apiProfiles": null,
+#                "apiVersions": null,
+#                "capabilities": null,
+#                "defaultApiVersion": null,
+#                "locationMappings": null,
+#                "locations": [
+#                  "southcentralus"
+#                ],
+#                "properties": null,
+#                "resourceType": "storageAccounts"
+#              }
+#            ]
+#          }
+#        ],
+#        "provisioningState": "Succeeded",
+#        "templateHash": "4209940267245455050",
+#        "templateLink": null,
+#        "timestamp": "2021-02-21T20:43:55.967217+00:00",
+#        "validatedResources": null
+#      },
+#      "resourceGroup": "myResourceGroup",
+#      "tags": null,
+#      "type": "Microsoft.Resources/deployments"
+#    }
+
+
+#   lesson 4 - use resourceGroup().location to get the location of the resource group to use for the location of the storage account
+#   az deployment group create --name addlocationparameter --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storageName=dusbalot02212021
+
+#           {
+#               "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addlocationparameter",
+#               "location": null,
+#               "name": "addlocationparameter",
+#               "properties": {
+#                 "correlationId": "7a654870-d278-4af8-a86c-f560f2037bfb",
+#                 "debugSetting": null,
+#                 "dependencies": [],
+#                 "duration": "PT1.7908158S",
+#                 "error": null,
+#                 "mode": "Incremental",
+#                 "onErrorDeployment": null,
+#                 "outputResources": [
+#                   {
+#                     "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dusbalot02212021",
+#                     "resourceGroup": "myResourceGroup"
+#                   }
+#                 ],
+#                 "outputs": null,
+#                 "parameters": {
+#                   "location": {
+#                     "type": "String",
+#                     "value": "southcentralus"
+#                   },
+#                   "storageName": {
+#                     "type": "String",
+#                     "value": "dusbalot02212021"
+#                   },
+#                   "storageSKU": {
+#                     "type": "String",
+#                     "value": "Standard_LRS"
+#                   }
+#                 },
+#                 "parametersLink": null,
+#                 "providers": [
+#                   {
+#                     "id": null,
+#                     "namespace": "Microsoft.Storage",
+#                     "registrationPolicy": null,
+#                     "registrationState": null,
+#                     "resourceTypes": [
+#                       {
+#                         "aliases": null,
+#                         "apiProfiles": null,
+#                         "apiVersions": null,
+#                         "capabilities": null,
+#                         "defaultApiVersion": null,
+#                         "locationMappings": null,
+#                         "locations": [
+#                           "southcentralus"
+#                         ],
+#                         "properties": null,
+#                         "resourceType": "storageAccounts"
+#                       }
+#                     ]
+#                   }
+#                 ],
+#                 "provisioningState": "Succeeded",
+#                 "templateHash": "15699290035728910523",
+#                 "templateLink": null,
+#                 "timestamp": "2021-02-21T21:37:07.900149+00:00",
+#                 "validatedResources": null
+#               },
+#               "resourceGroup": "myResourceGroup",
+#               "tags": null,
+#               "type": "Microsoft.Resources/deployments"
+#           }
+
+
+
+
+#  az deployment group create --name addnamevariable --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalotdev storageSKU=Standard_LRS
+#  
+#  {
+#    "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addnamevariable",
+#    "location": null,
+#    "name": "addnamevariable",
+#    "properties": {
+#      "correlationId": "1fd40708-01b7-4190-88e7-cff0846b450c",
+#      "debugSetting": null,
+#      "dependencies": [],
+#      "duration": "PT22.0788553S",
+#      "error": null,
+#      "mode": "Incremental",
+#      "onErrorDeployment": null,
+#      "outputResources": [
+#        {
+#          "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dubsalotdevtogqz2cvhhx3k",
+#          "resourceGroup": "myResourceGroup"
+#        }
+#      ],
+#      "outputs": null,
+#      "parameters": {
+#        "location": {
+#          "type": "String",
+#          "value": "southcentralus"
+#        },
+#        "storagePrefix": {
+#          "type": "String",
+#          "value": "dubsalotdev"
+#        },
+#        "storageSKU": {
+#          "type": "String",
+#          "value": "Standard_LRS"
+#        }
+#      },
+#      "parametersLink": null,
+#      "providers": [
+#        {
+#          "id": null,
+#          "namespace": "Microsoft.Storage",
+#          "registrationPolicy": null,
+#          "registrationState": null,
+#          "resourceTypes": [
+#            {
+#              "aliases": null,
+#              "apiProfiles": null,
+#              "apiVersions": null,
+#              "capabilities": null,
+#              "defaultApiVersion": null,
+#              "locationMappings": null,
+#              "locations": [
+#                "southcentralus"
+#              ],
+#              "properties": null,
+#              "resourceType": "storageAccounts"
+#            }
+#          ]
+#        }
+#      ],
+#      "provisioningState": "Succeeded",
+#      "templateHash": "15825304833025029711",
+#      "templateLink": null,
+#      "timestamp": "2021-02-21T22:03:57.291496+00:00",
+#      "validatedResources": null
+#    },
+#    "resourceGroup": "myResourceGroup",
+#    "tags": null,
+#    "type": "Microsoft.Resources/deployments"
+#  }
+
+
+
+
+#   lesson 6 - outputs to use in subsequent scripts
+#   convert to psobject to work with output later
+#
+# $o = az deployment group create --name addoutputs --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalotdev storageSKU=Standard_LRS
+# $op = [string]$o
+# $ret = ConvertFrom-JSON -InputObject $op
+# echo $ret.properties.outputs.storageAccountName.value
+# output: 
+#   dubsalotdevtogqz2cvhhx3k
+
+
+
+
+#   lesson 7 - add appservice plan from exported template
+#       az deployment group create --name addappserviceplan --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalot storageSKU=Standard_LRS appServicePlanName=dubsalot
+# {
+#   "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addappserviceplan",
+#   "location": null,
+#   "name": "addappserviceplan",
+#   "properties": {
+#     "correlationId": "fd63f43a-b621-4fc8-8618-d3501a8382f1",
+#     "debugSetting": null,
+#     "dependencies": [],
+#     "duration": "PT21.6686293S",
+#     "error": null,
+#     "mode": "Incremental",
+#     "onErrorDeployment": null,
+#     "outputResources": [
+#       {
+#         "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dubsalottogqz2cvhhx3k",
+#         "resourceGroup": "myResourceGroup"
+#       },
+#       {
+#         "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Web/serverfarms/dubsalot",
+#         "resourceGroup": "myResourceGroup"
+#       }
+#     ],
+#     "outputs": {
+#       "storageAccountName": {
+#         "type": "String",
+#         "value": "dubsalottogqz2cvhhx3k"
+#       },
+#       "storageEndpoint": {
+#         "type": "Object",
+#         "value": {
+#           "blob": "https://dubsalottogqz2cvhhx3k.blob.core.windows.net/",
+#           "dfs": "https://dubsalottogqz2cvhhx3k.dfs.core.windows.net/",
+#           "file": "https://dubsalottogqz2cvhhx3k.file.core.windows.net/",
+#           "queue": "https://dubsalottogqz2cvhhx3k.queue.core.windows.net/",
+#           "table": "https://dubsalottogqz2cvhhx3k.table.core.windows.net/",
+#           "web": "https://dubsalottogqz2cvhhx3k.z21.web.core.windows.net/"
+#         }
+#       }
+#     },
+#     "parameters": {
+#       "appServicePlanName": {
+#         "type": "String",
+#         "value": "dubsalot"
+#       },
+#       "location": {
+#         "type": "String",
+#         "value": "southcentralus"
+#       },
+#       "storagePrefix": {
+#         "type": "String",
+#         "value": "dubsalot"
+#       },
+#       "storageSKU": {
+#         "type": "String",
+#         "value": "Standard_LRS"
+#       }
+#     },
+#     "parametersLink": null,
+#     "providers": [
+#       {
+#         "id": null,
+#         "namespace": "Microsoft.Storage",
+#         "registrationPolicy": null,
+#         "registrationState": null,
+#         "resourceTypes": [
+#           {
+#             "aliases": null,
+#             "apiProfiles": null,
+#             "apiVersions": null,
+#             "capabilities": null,
+#             "defaultApiVersion": null,
+#             "locationMappings": null,
+#             "locations": [
+#               "southcentralus"
+#             ],
+#             "properties": null,
+#             "resourceType": "storageAccounts"
+#           }
+#         ]
+#       },
+#       {
+#         "id": null,
+#         "namespace": "Microsoft.Web",
+#         "registrationPolicy": null,
+#         "registrationState": null,
+#         "resourceTypes": [
+#           {
+#             "aliases": null,
+#             "apiProfiles": null,
+#             "apiVersions": null,
+#             "capabilities": null,
+#             "defaultApiVersion": null,
+#             "locationMappings": null,
+#             "locations": [
+#               "southcentralus"
+#             ],
+#             "properties": null,
+#             "resourceType": "serverfarms"
+#           }
+#         ]
+#       }
+#     ],
+#     "provisioningState": "Succeeded",
+#     "templateHash": "16636652440864062650",
+#     "templateLink": null,
+#     "timestamp": "2021-02-21T23:18:16.927359+00:00",
+#     "validatedResources": null
+#   },
+#   "resourceGroup": "myResourceGroup",
+#   "tags": null,
+#   "type": "Microsoft.Resources/deployments"
+# }
+
+
+
+#   lesson 9 - adding a linux website
+#         az deployment group create --name addwebapp --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalot storageSKU=Standard_LRS webAppName=dubs
+#      
+#      {
+#        "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Resources/deployments/addwebapp",
+#        "location": null,
+#        "name": "addwebapp",
+#        "properties": {
+#          "correlationId": "46cf56ba-c41a-4fb2-aaef-a1677a025c5a",
+#          "debugSetting": null,
+#          "dependencies": [
+#            {
+#              "dependsOn": [
+#                {
+#                  "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Web/serverfarms/dubsalot-app",
+#                  "resourceGroup": "myResourceGroup",
+#                  "resourceName": "dubsalot-app",
+#                  "resourceType": "Microsoft.Web/serverfarms"
+#                }
+#              ],
+#              "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Web/sites/dubstogqz2cvhhx3k",
+#              "resourceGroup": "myResourceGroup",
+#              "resourceName": "dubstogqz2cvhhx3k",
+#              "resourceType": "Microsoft.Web/sites"
+#            }
+#          ],
+#          "duration": "PT23.6633098S",
+#          "error": null,
+#          "mode": "Incremental",
+#          "onErrorDeployment": null,
+#          "outputResources": [
+#            {
+#              "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Storage/storageAccounts/dubsalottogqz2cvhhx3k",
+#              "resourceGroup": "myResourceGroup"
+#            },
+#            {
+#              "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Web/serverfarms/dubsalot-app",
+#              "resourceGroup": "myResourceGroup"
+#            },
+#            {
+#              "id": "/subscriptions/d739ae26-2404-45d1-a067-0ee9779c8d8c/resourceGroups/myResourceGroup/providers/Microsoft.Web/sites/dubstogqz2cvhhx3k",
+#              "resourceGroup": "myResourceGroup"
+#            }
+#          ],
+#          "outputs": {
+#            "storageAccountName": {
+#              "type": "String",
+#              "value": "dubsalottogqz2cvhhx3k"
+#            },
+#            "storageEndpoint": {
+#              "type": "Object",
+#              "value": {
+#                "blob": "https://dubsalottogqz2cvhhx3k.blob.core.windows.net/",
+#                "dfs": "https://dubsalottogqz2cvhhx3k.dfs.core.windows.net/",
+#                "file": "https://dubsalottogqz2cvhhx3k.file.core.windows.net/",
+#                "queue": "https://dubsalottogqz2cvhhx3k.queue.core.windows.net/",
+#                "table": "https://dubsalottogqz2cvhhx3k.table.core.windows.net/",
+#                "web": "https://dubsalottogqz2cvhhx3k.z21.web.core.windows.net/"
+#              }
+#            }
+#          },
+#          "parameters": {
+#            "appServicePlanName": {
+#              "type": "String",
+#              "value": "dubsalot-app"
+#            },
+#            "linuxFxVersion": {
+#              "type": "String",
+#              "value": "php|7.0"
+#            },
+#            "location": {
+#              "type": "String",
+#              "value": "southcentralus"
+#            },
+#            "storagePrefix": {
+#              "type": "String",
+#              "value": "dubsalot"
+#            },
+#            "storageSKU": {
+#              "type": "String",
+#              "value": "Standard_LRS"
+#            },
+#            "webAppName": {
+#              "type": "String",
+#              "value": "dubs"
+#            }
+#          },
+#          "parametersLink": null,
+#          "providers": [
+#            {
+#              "id": null,
+#              "namespace": "Microsoft.Storage",
+#              "registrationPolicy": null,
+#              "registrationState": null,
+#              "resourceTypes": [
+#                {
+#                  "aliases": null,
+#                  "apiProfiles": null,
+#                  "apiVersions": null,
+#                  "capabilities": null,
+#                  "defaultApiVersion": null,
+#                  "locationMappings": null,
+#                  "locations": [
+#                    "southcentralus"
+#                  ],
+#                  "properties": null,
+#                  "resourceType": "storageAccounts"
+#                }
+#              ]
+#            },
+#            {
+#              "id": null,
+#              "namespace": "Microsoft.Web",
+#              "registrationPolicy": null,
+#              "registrationState": null,
+#              "resourceTypes": [
+#                {
+#                  "aliases": null,
+#                  "apiProfiles": null,
+#                  "apiVersions": null,
+#                  "capabilities": null,
+#                  "defaultApiVersion": null,
+#                  "locationMappings": null,
+#                  "locations": [
+#                    "southcentralus"
+#                  ],
+#                  "properties": null,
+#                  "resourceType": "serverfarms"
+#                },
+#                {
+#                  "aliases": null,
+#                  "apiProfiles": null,
+#                  "apiVersions": null,
+#                  "capabilities": null,
+#                  "defaultApiVersion": null,
+#                  "locationMappings": null,
+#                  "locations": [
+#                    "southcentralus"
+#                  ],
+#                  "properties": null,
+#                  "resourceType": "sites"
+#                }
+#              ]
+#            }
+#          ],
+#          "provisioningState": "Succeeded",
+#          "templateHash": "4547389641326946926",
+#          "templateLink": null,
+#          "timestamp": "2021-02-22T00:10:37.848967+00:00",
+#          "validatedResources": null
+#        },
+#        "resourceGroup": "myResourceGroup",
+#        "tags": null,
+#        "type": "Microsoft.Resources/deployments"
+#      }
