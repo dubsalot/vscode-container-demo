@@ -1,3 +1,26 @@
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Future GitHub Action Workflow
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+#  1. az ad sp create-for-rbac --name CIServicePrincipal --role Contributor
+#     Not part of pipeline. Output from this gets stored as secrets
+#     
+#  2. az login --service-principal --username <github secret> --password <github secret> --tenant <github secret>
+#
+#  3. az account set --subscription <github secret>
+#  
+#  Run 4 & 5 in parallel
+#
+#  4. az deployment group create --name addwebapp --resource-group myResourceGroup --template-file .\azuredeploy.json --parameters storagePrefix=dubsalot storageSKU=Standard_LRS webAppName=dubsalot
+#  5. dotnet publish --output cibuild
+#
+#  6. cd cibuild
+#  7. az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name "dubstogqz2cvhhx3k" --debug
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #   Azure CLI for windows, linux, mac:  https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -12,9 +35,6 @@
 #   Part 8: add website            https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-quickstart-template?tabs=azure-cli
 #
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-# need this in the pipeline. does az login take credentials on cli ?
-az login
 
 
 #   lesson 1
