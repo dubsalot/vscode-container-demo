@@ -24,16 +24,16 @@ jobs:
         username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
         password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
     env:
-      HELLO: WORLD
+      BRANCH: ${{ github.ref }}
         
     steps:
       - uses: actions/checkout@v2
       - id: build_website
-        name: pull source and mount in container
+        name: build and compress
         run: |
-          echo $HELLO
-          pwd
-          ls -alF
+          cd webui
+          dotnet publish --output cibuild_o
+          tar cfvz build.tar.gz cibuild_o
   
   publish:
     runs-on: ubuntu-latest
@@ -42,8 +42,6 @@ jobs:
       credentials:
         username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
         password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
-    env:
-      HELLO: WORLD
         
     steps:
       - id: publish_website
