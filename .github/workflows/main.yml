@@ -1,0 +1,39 @@
+name: Build & Publish Website
+
+on:
+  # push:
+    # branches: [ main, develop, feature/* ]
+  #pull_request:
+    #branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+  AZ_SVC_PRINCIPAL_PW: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+  AZ_SUBSCRIPTION_TENANT: ${{ secrets.AZ_SUBSCRIPTION_TENANT }}
+  AZ_RESOURCE_GROUP: ${{ secrets.AZ_RESOURCE_GROUP }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HELLO: WORLD
+        
+    steps:
+      - id: debug_output
+        name: display debugging info - variables
+        run: | 
+          echo "secrets.AZ_SVC_PRINCIPAL_UN      : ${{ secrets.AZ_SVC_PRINCIPAL_UN }}"
+
+    services:
+      redis:
+        image: dubsalot.azurecr.io/ci/azure
+        credentials:
+          username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+          password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+
+
+
+#give me some more whitespace
