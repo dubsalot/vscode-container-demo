@@ -24,7 +24,7 @@ jobs:
         username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
         password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
       volumes:
-        - ${{ github.workspace }}:${{ github.workspace }} 
+        - ${{ github.workspace }}:/src 
     env:
       HELLO: WORLD
         
@@ -34,7 +34,7 @@ jobs:
         run: |
           pwd
           ls -alF
-          ls -alF ${{ github.workspace }}
+          ls -alF /src
   
   publish:
     runs-on: ubuntu-latest
