@@ -32,7 +32,7 @@ jobs:
         name: display debugging info - variables
         run: | 
           echo "secrets.AZ_SVC_PRINCIPAL_UN      : ${{ secrets.AZ_SVC_PRINCIPAL_UN }}"
-          run az --version
+          az --version
 
     services:
       redis:
