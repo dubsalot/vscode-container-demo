@@ -22,7 +22,9 @@ jobs:
       image: dubsalot.azurecr.io/ci/azure
       credentials:
         username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
-        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+      volumes:
+        - ${{ github.workspace }}:${{ github.workspace }} 
     env:
       HELLO: WORLD
         
@@ -54,9 +56,9 @@ jobs:
 
 
 
-#--------------------------------------------
-# do not need this right now, but leaving in place for future reference          
-#--------------------------------------------
+#----------------------------------------------------------------------------------------
+#   do not need this right now, but leaving in place for future reference               #
+#----------------------------------------------------------------------------------------
 # services:
 #   container_based_service:
 #     image: dubsalot.azurecr.io/ci/azure
