@@ -17,6 +17,12 @@ env:
 
 jobs:
   build:
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+    
     runs-on: ubuntu-latest
     env:
       HELLO: WORLD
@@ -26,6 +32,7 @@ jobs:
         name: display debugging info - variables
         run: | 
           echo "secrets.AZ_SVC_PRINCIPAL_UN      : ${{ secrets.AZ_SVC_PRINCIPAL_UN }}"
+          run az --version
 
     services:
       redis:
