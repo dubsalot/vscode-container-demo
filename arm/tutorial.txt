@@ -17,6 +17,28 @@
 #  6. cd cibuild
 #  7. az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name "dubstogqz2cvhhx3k" --debug
 
+
+# ---- 
+
+
+az deployment group create --name passappname --resource-group myResourceGroup --template-file ./azuredeploy.json --parameters app=dubz storageSKU=Standard_LRS appServicePlanName="dubsdevsvc" uniqueStorageName="dubsdevstg" webAppPortalName="dubsdevweb"
+
+#   "variables": {
+#     "appServicePlanName": "[if(equals(parameters('storageAcctName'),'-'), concat(parameters('app'), 'svc', uniqueString(resourceGroup().id)), parameters('storageAcctName'))]",
+#     "uniqueStorageName": "[if(equals(parameters('appSvcName'),'-'), concat(parameters('app'), 'stg', uniqueString(resourceGroup().id)), parameters('appSvcName'))]",
+#     "webAppPortalName": "[if(equals(parameters('webAppName'),'-'), concat(parameters('app'), 'web', uniqueString(resourceGroup().id)), parameters('webAppName'))]"
+#   },
+# ---
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#   Mostly Unrelated and needs to be ran ahead of time to have this image in the registry for the actions
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#   azure container registry
+#   az login
+#   az acr login --name dubsalot.azurecr.io
+#   docker build -t ci/azure -f .\Dockerfile
+#   docker tag ci/azure dubsalot.azurecr.io/ci/azure
+#   docker push dubsalot.azurecr.io/ci/azure
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

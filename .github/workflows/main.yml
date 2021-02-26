@@ -1,36 +1,39 @@
-# This is a basic workflow to help you get started with Actions
+name: Build & Publish Website
 
-name: CI
-
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  # push:
+    # branches: [ main, develop, feature/* ]
+  #pull_request:
+    #branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+env:
+  AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+  AZ_SVC_PRINCIPAL_PW: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+  AZ_SUBSCRIPTION_TENANT: ${{ secrets.AZ_SUBSCRIPTION_TENANT }}
+  AZ_RESOURCE_GROUP: ${{ secrets.AZ_RESOURCE_GROUP }}
+
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      HELLO: WORLD
+        
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - id: debug_output
+        name: display debugging info - variables
+        run: | 
+          echo "secrets.AZ_SVC_PRINCIPAL_UN      : ${{ secrets.AZ_SVC_PRINCIPAL_UN }}"
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+    services:
+      redis:
+        image: dubsalot.azurecr.io/ci/azure
+        credentials:
+          username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+          password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+
+
+#give me some more whitespace
