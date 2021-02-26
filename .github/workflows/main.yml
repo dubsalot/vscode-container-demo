@@ -29,8 +29,10 @@ jobs:
     steps:
       - id: build_website
         name: display debugging info - variables
-        run: | 
+        run: |
+          pwd
           ls -alF
+          ls -alF ${{ github.workspace }}
   
   publish:
     runs-on: ubuntu-latest
