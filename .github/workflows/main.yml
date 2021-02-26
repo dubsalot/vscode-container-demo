@@ -24,17 +24,17 @@ jobs:
         username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
         password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
       volumes:
-        - ${{ github.workspace }}:/src 
+        - ${{ github.workspace }}:${{ github.workspace }} 
     env:
       HELLO: WORLD
         
     steps:
+      - uses: actions/checkout@v2
       - id: build_website
-        name: display debugging info - variables
+        name: pull source and mount in container
         run: |
           pwd
-          ls -alF
-          ls -alF /src
+          ls -alF ${{ github.workspace }}
   
   publish:
     runs-on: ubuntu-latest
