@@ -1,8 +1,8 @@
 name: Build & Publish Website
 
 on:
-  # push:
-    # branches: [ main, develop, feature/* ]
+  push:
+    branches: [ master, develop, feature/* ]
   #pull_request:
     #branches: [ main ]
 
@@ -17,29 +17,50 @@ env:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     container:
       image: dubsalot.azurecr.io/ci/azure
       credentials:
         username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
         password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
-    
-    runs-on: ubuntu-latest
     env:
       HELLO: WORLD
         
     steps:
-      - id: debug_output
+      - id: build_website
         name: display debugging info - variables
         run: | 
-          echo "secrets.AZ_SVC_PRINCIPAL_UN      : ${{ secrets.AZ_SVC_PRINCIPAL_UN }}"
+          ls -alF
+  
+  publish:
+    runs-on: ubuntu-latest
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+    env:
+      HELLO: WORLD
+        
+    steps:
+      - id: publish_website
+        name: display debugging info - variables
+        run: | 
+          echo "publishing website"
           az --version
+          tfx --version
 
-    # services:
-    #   redis:
-    #     image: dubsalot.azurecr.io/ci/azure
-    #     credentials:
-    #       username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
-    #       password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+
+
+#--------------------------------------------
+# do not need this right now, but leaving in place for future reference          
+#--------------------------------------------
+# services:
+#   container_based_service:
+#     image: dubsalot.azurecr.io/ci/azure
+#     credentials:
+#       username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+#       password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
 
 
 
