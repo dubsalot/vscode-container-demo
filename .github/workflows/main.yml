@@ -29,13 +29,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - id: build_website
+      - id: build-website
         name: build and compress
         run: |
           cd webui
           dotnet publish --output cibuild_o
           tar cfvz build.tgz cibuild_o
-          ls -alF
       
       - id: upload-build-artifact
         uses: actions/upload-artifact@v2
