@@ -28,12 +28,19 @@ jobs:
         
     steps:
       - uses: actions/checkout@v2
+      
       - id: build_website
         name: build and compress
         run: |
           cd webui
           dotnet publish --output cibuild_o
           tar cfvz build.tar.gz cibuild_o
+      
+      - id: publish-manifest-files
+        uses: actions/upload-artifact@v2
+        with:
+          name: compiled-website
+          path: build.tar.gz
   
   publish:
     runs-on: ubuntu-latest
