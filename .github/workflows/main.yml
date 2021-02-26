@@ -23,8 +23,8 @@ jobs:
       credentials:
         username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
         password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
-      volumes:
-        - ${{ github.workspace }}:${{ github.workspace }} 
+      # volumes:
+      #   - ${{ github.workspace }}:${{ github.workspace }} 
     env:
       HELLO: WORLD
         
@@ -34,6 +34,7 @@ jobs:
         name: pull source and mount in container
         run: |
           pwd
+          ls -alF
           ls -alF ${{ github.workspace }}
   
   publish:
