@@ -53,6 +53,7 @@ jobs:
         password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
         
     steps:
+      - uses: actions/checkout@v2
       - id: create_website_infrastructure
         name: create azure infrastructure with ARM
         run: |
