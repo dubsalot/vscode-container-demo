@@ -5,7 +5,7 @@ on:
     branches: [ master, develop, feature/* ]
   #pull_request:
     #branches: [ main ]
-
+          #tar cfvz build.tgz cibuild_o
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -33,14 +33,13 @@ jobs:
         name: build and compress
         run: |
           cd webui
-          dotnet publish --output cibuild_o
-          tar cfvz build.tgz cibuild_o
+          dotnet publish --output cibuild
       
       - id: upload-build-artifact
         uses: actions/upload-artifact@v2
         with:
-          name: compiled-website
-          path: "**/build.tgz"
+          name: build-output
+          path: "webui/cibuild"
   
   publish:
     runs-on: ubuntu-latest
