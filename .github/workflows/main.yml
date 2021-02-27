@@ -16,6 +16,7 @@ env:
   AZ_RESOURCE_GROUP: "TechExchangeDemoGroup"
   AZ_LOCATION: "South Central US"
   GH_RUN_ID: ${{ github.run_id }}
+  AZ_WEBAPP_NAME: techexchange
 
 jobs:
   build:
@@ -26,8 +27,6 @@ jobs:
       credentials:
         username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
         password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
-    env:
-      BRANCH: ${{ github.ref }}
         
     steps:
       - uses: actions/checkout@v2
@@ -37,13 +36,13 @@ jobs:
         run: |
           cd webui
           dotnet publish --output cibuild
-          tar cfvz build.tgz cibuild
+          tar cfvz cibuild.tgz cibuild
       
       - id: upload-build-artifact
         uses: actions/upload-artifact@v2
         with:
           name: build-output
-          path: "webui/build.tgz"
+          path: "webui/cibuild.tgz"
   
   create-infra:
     name: deploy infrastructure
@@ -68,7 +67,7 @@ jobs:
                                                  storageSKU=Standard_LRS \
                                                  appSvcName="tekexsvc" \
                                                  storageAcctName="tekexstg" \
-                                                 webAppName="techexchange"
+                                                 webAppName="$AZ_WEBAPP_NAME"
   publish-site:
     name: deploy changes for app
     needs: [build, create-infra]
@@ -88,10 +87,10 @@ jobs:
       - id: deploy-website-to-infra
         name: upload website to app service
         run: |
-          tar xfvz build.tgz
+          tar xfvz cibuild.tgz
           cd cibuild
           az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
-          az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name "dubsdevweb"
+          az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name "$AZ_WEBAPP_NAME"
 
 
 #----------------------------------------------------------------------------------------
