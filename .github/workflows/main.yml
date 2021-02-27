@@ -36,13 +36,14 @@ jobs:
         run: |
           cd webui
           dotnet publish --output cibuild
-          zip -r cibuild.zip cibuild
+          cd cibuild
+          zip -r cibuild.zip .
       
       - id: upload-build-artifact
         uses: actions/upload-artifact@v2
         with:
           name: build-output
-          path: "webui/cibuild.zip"
+          path: "webui/cibuild/cibuild.zip"
   
   create-infra:
     name: deploy infrastructure
