@@ -57,7 +57,7 @@ jobs:
         name: create azure infrastructure with ARM
         run: |
           az login --service-principal --username $AZ_SVC_PRINCIPAL_UN --password $AZ_SVC_PRINCIPAL_PW --tenant $AZ_SUBSCRIPTION_TENANT
-          az group create --name $AZ_RESOURCE_GROUP --location $AZ_LOCATION
+          az group create --name "$AZ_RESOURCE_GROUP" --location $AZ_LOCATION
           az deployment group create --name $GH_RUN_ID \
                                     --resource-group "$AZ_RESOURCE_GROUP" \
                                     --template-file arm/azuredeploy.json \
