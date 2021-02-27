@@ -5,7 +5,6 @@ on:
     branches: [ master, develop, feature/* ]
   #pull_request:
     #branches: [ main ]
-          #tar cfvz build.tgz cibuild_o
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -69,8 +68,8 @@ jobs:
                                                  appSvcName="tekexsvc" \
                                                  storageAcctName="tekexstg" \
                                                  webAppName="$AZ_WEBAPP_NAME"
-  publish-site:
-    name: deploy changes for app
+  publish-site-test:
+    name: deploy changes for test
     needs: [build, create-infra]
     runs-on: ubuntu-latest
     container:
@@ -90,7 +89,54 @@ jobs:
         run: |
           az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
           az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip --slot test
+
+  publish-site-qa:
+    if: ${{ github.ref == 'refs/heads/develop' }}
+    name: deploy changes for qa
+    needs: [build, create-infra]
+    runs-on: ubuntu-latest
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+        
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output 
+
+      - id: deploy-website-to-infra
+        name: upload website to app service
+        run: |
+          az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
+          az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip --slot qa          
           
+  publish-site-prod:
+    if: ${{ github.ref == 'refs/heads/master' }}
+    name: deploy changes for production
+    needs: [build, create-infra]
+    runs-on: ubuntu-latest
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+        
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output 
+
+      - id: deploy-website-to-infra
+        name: upload website to app service
+        run: |
+          az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
+          az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip
+
+
 
 # tar xfvz cibuild.tgz tar cfvz cibuild.tgz cibuild
 #           cd cibuild
@@ -106,7 +152,3 @@ jobs:
 #     credentials:
 #       username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
 #       password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
-
-
-
-#give me some more whitespace
