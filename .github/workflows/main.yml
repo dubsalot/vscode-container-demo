@@ -19,6 +19,7 @@ env:
 
 jobs:
   build:
+    name: compile source code
     runs-on: ubuntu-latest
     container:
       image: dubsalot.azurecr.io/ci/azure
@@ -45,6 +46,7 @@ jobs:
           path: "webui/build.tgz"
   
   create-infra:
+    name: deploy infrastructure
     runs-on: ubuntu-latest
     container:
       image: dubsalot.azurecr.io/ci/azure
@@ -68,6 +70,7 @@ jobs:
                                                  storageAcctName="dubsdevstg" \
                                                  webAppName="dubsdevweb"
   publish-site:
+    name: push site to infra
     needs: [build, create-infra]
     runs-on: ubuntu-latest
     container:
