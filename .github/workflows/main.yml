@@ -90,7 +90,7 @@ jobs:
           tar xfvz cibuild.tgz
           cd cibuild
           az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
-          az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name "$AZ_WEBAPP_NAME"
+          az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name "$AZ_WEBAPP_NAME-test"
 
 
 #----------------------------------------------------------------------------------------
