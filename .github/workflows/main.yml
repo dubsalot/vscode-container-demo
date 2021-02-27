@@ -67,7 +67,26 @@ jobs:
                                                  appSvcName="dubsdevsvc" \
                                                  storageAcctName="dubsdevstg" \
                                                  webAppName="dubsdevweb"
+  publish-site:
+    needs: [build, create-infra]
+    runs-on: ubuntu-latest
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+        
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output 
 
+      - id: deploy-website-to-infra
+        name: upload website to app service
+        run: |
+          az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
+          ls -alF
 
 
 
