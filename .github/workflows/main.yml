@@ -64,11 +64,11 @@ jobs:
           az deployment group create --name $GH_RUN_ID \
                                     --resource-group "$AZ_RESOURCE_GROUP" \
                                     --template-file arm/azuredeploy.json \
-                                    --parameters app=dubz \
+                                    --parameters app=tekex \
                                                  storageSKU=Standard_LRS \
-                                                 appSvcName="dubsdevsvc" \
-                                                 storageAcctName="dubsdevstg" \
-                                                 webAppName="dubsdevweb"
+                                                 appSvcName="tekexsvc" \
+                                                 storageAcctName="tekexstg" \
+                                                 webAppName="techexchange"
   publish-site:
     name: deploy changes for app
     needs: [build, create-infra]
