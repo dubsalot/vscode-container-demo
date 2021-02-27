@@ -86,7 +86,7 @@ jobs:
         name: upload website to app service
         run: |
           tar xfvz build.tgz
-          cd build
+          cd cibuild
           az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
           az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name "dubsdevweb"
 
