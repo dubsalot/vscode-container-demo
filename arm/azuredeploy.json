@@ -49,8 +49,8 @@
     }
   },  
   "variables": {
-    "appServicePlanName": "[if(equals(parameters('storageAcctName'),'-'), concat(parameters('app'), 'svc', uniqueString(resourceGroup().id)), parameters('storageAcctName'))]",
-    "uniqueStorageName": "[if(equals(parameters('appSvcName'),'-'), concat(parameters('app'), 'stg', uniqueString(resourceGroup().id)), parameters('appSvcName'))]",
+    "uniqueStorageName": "[if(equals(parameters('storageAcctName'),'-'), concat(parameters('app'), 'svc', uniqueString(resourceGroup().id)), parameters('storageAcctName'))]",
+    "appServicePlanName": "[if(equals(parameters('appSvcName'),'-'), concat(parameters('app'), 'stg', uniqueString(resourceGroup().id)), parameters('appSvcName'))]",
     "webAppPortalName": "[if(equals(parameters('webAppName'),'-'), concat(parameters('app'), 'web', uniqueString(resourceGroup().id)), parameters('webAppName'))]"
   },
   "resources": [
@@ -73,10 +73,10 @@
       "name": "[variables('appServicePlanName')]",
       "location": "[parameters('location')]",
       "sku": {
-        "name": "B1",
+        "name": "S1",
         "tier": "Standard",
-        "size": "B1",
-        "family": "B",
+        "size": "S1",
+        "family": "S1",
         "capacity": 1
       },
       "kind": "linux",
