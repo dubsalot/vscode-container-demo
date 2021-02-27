@@ -89,6 +89,7 @@
     },
     {
       "type": "Microsoft.Web/sites",
+      "sku": "Standard",
       "apiVersion": "2018-11-01",
       "name": "[variables('webAppPortalName')]",
       "location": "[parameters('location')]",

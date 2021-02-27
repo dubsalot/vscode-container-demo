@@ -70,7 +70,7 @@ jobs:
                                                  storageAcctName="dubsdevstg" \
                                                  webAppName="dubsdevweb"
   publish-site:
-    name: push site to infra
+    name: deploy changes for app
     needs: [build, create-infra]
     runs-on: ubuntu-latest
     container:
