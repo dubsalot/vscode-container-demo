@@ -69,7 +69,10 @@ jobs:
                                                  storageAcctName="tekexstg" \
                                                  webAppName="$AZ_WEBAPP_NAME"
   publish-site-test:
-    name: deploy changes for test
+    name: deploy changes for automated tests
+    environment:
+      name: test
+      url: "http://techexchange-test.azurewebsites.net/"    
     needs: [build, create-infra]
     runs-on: ubuntu-latest
     container:
@@ -91,8 +94,10 @@ jobs:
           az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip --slot test
 
   publish-site-qa:
-    if: ${{ github.ref == 'refs/heads/develop' }}
-    name: deploy changes for qa
+    name: deploy changes for qa validation
+    environment:
+      name: qa
+      url: "http://techexchange-qa.azurewebsites.net/"  
     needs: [build, create-infra]
     runs-on: ubuntu-latest
     container:
@@ -114,8 +119,10 @@ jobs:
           az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip --slot qa          
           
   publish-site-prod:
-    if: ${{ github.ref == 'refs/heads/master' }}
     name: deploy changes for production
+    environment:
+      name: production
+      url: "http://techexchange.azurewebsites.net/"     
     needs: [build, create-infra]
     runs-on: ubuntu-latest
     container:
