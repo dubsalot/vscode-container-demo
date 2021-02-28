@@ -1,3 +1,6 @@
+# TODO
+Oraganize this repo into sections for each part of the series. For example, need to break out a separate README for GitHub Actions and another for Azure Infrastructure as Code (ARM)
+
 # Introduction
 This repo is a basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
 
@@ -73,5 +76,18 @@ You should also try the other methods of Remote development like WSL directly or
 code --remote wsl+Ubuntu-20.04 /mnt/d/path/to/vscode-container-demo
 
 ```
+
+
+# Azure Cloud and GitHub Actions
+### This is going to be broken out into another README
+The build definition is stored in .github/main.yml
+
+The jobs in the build depend on a custom container I use for dev tools. You can find that docker file under .ci/
+
+The jobs pull from dubsalot.azurecr.io/ci/azure from an Azure Container Registry.
+
+The credentials are stored in GitHub Action Secrets:
+- AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+- AZ_SVC_PRINCIPAL_PW: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
 
 :rocket: Happy Coding!

@@ -49,8 +49,8 @@
     }
   },  
   "variables": {
-    "appServicePlanName": "[if(equals(parameters('storageAcctName'),'-'), concat(parameters('app'), 'svc', uniqueString(resourceGroup().id)), parameters('storageAcctName'))]",
-    "uniqueStorageName": "[if(equals(parameters('appSvcName'),'-'), concat(parameters('app'), 'stg', uniqueString(resourceGroup().id)), parameters('appSvcName'))]",
+    "uniqueStorageName": "[if(equals(parameters('storageAcctName'),'-'), concat(parameters('app'), 'svc', uniqueString(resourceGroup().id)), parameters('storageAcctName'))]",
+    "appServicePlanName": "[if(equals(parameters('appSvcName'),'-'), concat(parameters('app'), 'stg', uniqueString(resourceGroup().id)), parameters('appSvcName'))]",
     "webAppPortalName": "[if(equals(parameters('webAppName'),'-'), concat(parameters('app'), 'web', uniqueString(resourceGroup().id)), parameters('webAppName'))]"
   },
   "resources": [
@@ -73,10 +73,10 @@
       "name": "[variables('appServicePlanName')]",
       "location": "[parameters('location')]",
       "sku": {
-        "name": "B1",
-        "tier": "Basic",
-        "size": "B1",
-        "family": "B",
+        "name": "S1",
+        "tier": "Standard",
+        "size": "S1",
+        "family": "S1",
         "capacity": 1
       },
       "kind": "linux",
@@ -97,12 +97,91 @@
       ],
       "kind": "app",
       "properties": {
+        "sku": "Standard",
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
         "siteConfig": {
             "linuxFxVersion": "[parameters('linuxFxVersion')]"
           }
       }
-    }        
+    },
+    {
+      "type": "Microsoft.Web/sites/slots",
+      "apiVersion": "2018-11-01",
+      "name": "[concat(variables('webAppPortalName'), '/qa')]",
+      "location": "South Central US",
+      "dependsOn": [
+          "[resourceId('Microsoft.Web/sites', variables('webAppPortalName'))]",
+          "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
+      ],
+      "kind": "app,linux",
+      "properties": {
+          "enabled": true,
+          "hostNameSslStates": [
+              {
+                  "name": "techexchange-qa.azurewebsites.net",
+                  "sslState": "Disabled",
+                  "hostType": "Standard"
+              },
+              {
+                  "name": "techexchange-qa.scm.azurewebsites.net",
+                  "sslState": "Disabled",
+                  "hostType": "Repository"
+              }
+          ],
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+          "reserved": true,
+          "isXenon": false,
+          "hyperV": false,
+          "siteConfig": {},
+          "scmSiteAlsoStopped": false,
+          "clientAffinityEnabled": true,
+          "clientCertEnabled": false,
+          "hostNamesDisabled": false,
+          "containerSize": 0,
+          "dailyMemoryTimeQuota": 0,
+          "httpsOnly": false,
+          "redundancyMode": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites/slots",
+      "apiVersion": "2018-11-01",
+      "name": "[concat(variables('webAppPortalName'), '/test')]",
+      "location": "South Central US",
+      "dependsOn": [
+          "[resourceId('Microsoft.Web/sites', variables('webAppPortalName'))]",
+          "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
+      ],
+      "kind": "app,linux",
+      "properties": {
+          "enabled": true,
+          "hostNameSslStates": [
+              {
+                  "name": "techexchange-test.azurewebsites.net",
+                  "sslState": "Disabled",
+                  "hostType": "Standard"
+              },
+              {
+                  "name": "techexchange-test.scm.azurewebsites.net",
+                  "sslState": "Disabled",
+                  "hostType": "Repository"
+              }
+          ],
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+          "reserved": true,
+          "isXenon": false,
+          "hyperV": false,
+          "siteConfig": {},
+          "scmSiteAlsoStopped": false,
+          "clientAffinityEnabled": true,
+          "clientCertEnabled": false,
+          "hostNamesDisabled": false,
+          "containerSize": 0,
+          "dailyMemoryTimeQuota": 0,
+          "httpsOnly": false,
+          "redundancyMode": "None"
+      }
+    }                 
   ],
   "outputs": {
     "storageEndpoint": {

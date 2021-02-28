@@ -1,11 +1,10 @@
 name: Build & Publish Website
 
 on:
-  # push:
-    # branches: [ main, develop, feature/* ]
+  push:
+    branches: [ master, develop, feature/* ]
   #pull_request:
     #branches: [ main ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -13,27 +12,150 @@ env:
   AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
   AZ_SVC_PRINCIPAL_PW: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
   AZ_SUBSCRIPTION_TENANT: ${{ secrets.AZ_SUBSCRIPTION_TENANT }}
-  AZ_RESOURCE_GROUP: ${{ secrets.AZ_RESOURCE_GROUP }}
+  AZ_RESOURCE_GROUP: "TechExchangeDemoGroup"
+  AZ_LOCATION: "South Central US"
+  GH_RUN_ID: ${{ github.run_id }}
+  AZ_WEBAPP_NAME: techexchange
 
 jobs:
   build:
+    name: compile source code
     runs-on: ubuntu-latest
-    env:
-      HELLO: WORLD
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
         
     steps:
-      - id: debug_output
-        name: display debugging info - variables
-        run: | 
-          echo "secrets.AZ_SVC_PRINCIPAL_UN      : ${{ secrets.AZ_SVC_PRINCIPAL_UN }}"
+      - uses: actions/checkout@v2
+      
+      - id: build-website
+        name: build and compress
+        run: |
+          cd webui
+          dotnet publish --output cibuild
+          cd cibuild
+          zip -r cibuild.zip .
+      
+      - id: upload-build-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-output
+          path: "webui/cibuild/cibuild.zip"
+  
+  create-infra:
+    name: deploy infrastructure
+    runs-on: ubuntu-latest
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+        
+    steps:
+      - uses: actions/checkout@v2
+      - id: create_website_infrastructure
+        name: create azure infrastructure with ARM
+        run: |
+          az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
+          az group create --name "$AZ_RESOURCE_GROUP" --location "$AZ_LOCATION"
+          az deployment group create --name $GH_RUN_ID \
+                                    --resource-group "$AZ_RESOURCE_GROUP" \
+                                    --template-file arm/azuredeploy.json \
+                                    --parameters app=tekex \
+                                                 storageSKU=Standard_LRS \
+                                                 appSvcName="tekexsvc" \
+                                                 storageAcctName="tekexstg" \
+                                                 webAppName="$AZ_WEBAPP_NAME"
+  publish-site-test:
+    name: deploy changes for automated tests
+    environment:
+      name: test
+      url: "http://techexchange-test.azurewebsites.net/"    
+    needs: [build, create-infra]
+    runs-on: ubuntu-latest
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+        
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output 
 
-    services:
-      redis:
-        image: dubsalot.azurecr.io/ci/azure
-        credentials:
-          username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
-          password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+      - id: deploy-website-to-infra
+        name: upload website to app service
+        run: |
+          az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
+          az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip --slot test
+
+  publish-site-qa:
+    name: deploy changes for qa validation
+    environment:
+      name: qa
+      url: "http://techexchange-qa.azurewebsites.net/"  
+    needs: [build, create-infra]
+    runs-on: ubuntu-latest
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+        
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output 
+
+      - id: deploy-website-to-infra
+        name: upload website to app service
+        run: |
+          az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
+          az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip --slot qa          
+          
+  publish-site-prod:
+    name: deploy changes for production
+    environment:
+      name: production
+      url: "http://techexchange.azurewebsites.net/"     
+    needs: [build, create-infra]
+    runs-on: ubuntu-latest
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+        
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output 
+
+      - id: deploy-website-to-infra
+        name: upload website to app service
+        run: |
+          az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
+          az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip
 
 
 
-#give me some more whitespace
+# tar xfvz cibuild.tgz tar cfvz cibuild.tgz cibuild
+#           cd cibuild
+#           az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
+#           az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name "$AZ_WEBAPP_NAME-test"
+
+#----------------------------------------------------------------------------------------
+#   do not need this right now, but leaving in place for future reference               #
+#----------------------------------------------------------------------------------------
+# services:
+#   container_based_service:
+#     image: dubsalot.azurecr.io/ci/azure
+#     credentials:
+#       username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+#       password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
