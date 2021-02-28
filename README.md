@@ -1,10 +1,15 @@
-# TODO
-Oraganize this repo into sections for each part of the series. For example, need to break out a separate README for GitHub Actions and another for Azure Infrastructure as Code (ARM)
+# Tech Exchange Series
+This repo is a series of parts. Each part will build off of the previous part. If you're interested in contributing and presenting at Tech Exchange, let me know. I am taking applications :P
+
+1. Part 1 - Use Visual Studio Code inside a container [series/part-1-vscode-container](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container)
+1. Part 2 - GitHub Actions Introduction [master](https://github.com/dubsalot/vscode-container-demo)
+
 
 # Introduction
-This repo is a basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
+This repo started as basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
+Originally, it was made using "[Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)" as the main source.
 
-This repo was put together with information from "[Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)" and a few other places
+Now, it is becoming a series and add little bits of technology along the way.
 
 
 # Technology
@@ -44,6 +49,7 @@ Other useful extensions for remote development with vscode
 1. [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
 1. [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
 1. [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
+1. [ARM Templates](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools)
 
 
 # Steps to Begin Coding
@@ -80,11 +86,9 @@ code --remote wsl+Ubuntu-20.04 /mnt/d/path/to/vscode-container-demo
 
 # Azure Cloud and GitHub Actions
 ### This is going to be broken out into another README
-The build definition is stored in .github/main.yml
-
-The jobs in the build depend on a custom container I use for dev tools. You can find that docker file under .ci/
-
-The jobs pull from dubsalot.azurecr.io/ci/azure from an Azure Container Registry.
+- The workflow is stored in .github/main.yml
+- The jobs in the build depend on a custom container I use for dev tools. You can find that docker file under .ci/
+- The jobs pull dubsalot.azurecr.io/ci/azure from an my personal Azure Container Registry
 
 The credentials are stored in GitHub Action Secrets:
 - AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
