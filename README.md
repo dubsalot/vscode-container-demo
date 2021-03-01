@@ -1,9 +1,8 @@
 # Tech Exchange Series
 This repo is a series of parts. Each part will build off of the previous part. If you're interested in contributing and presenting at Tech Exchange, let me know. I am taking applications :P
 
-1. Part 1 - Use Visual Studio Code inside a container [series/part-1-vscode-container](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container)
-1. Part 2 - GitHub Actions Introduction [master](https://github.com/dubsalot/vscode-container-demo)
-
+1. [Part 1](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container) - Use Visual Studio Code inside a container
+1. [Part 2](https://github.com/dubsalot/vscode-container-demo/tree/series/part-2-github-actions-intro) - GitHub Actions Introduction
 
 # Introduction
 This repo started as basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
