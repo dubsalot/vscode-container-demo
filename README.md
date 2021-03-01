@@ -5,10 +5,10 @@ This repo is a series of parts. Each part will build off of the previous part. I
 1. [Part 2](https://github.com/dubsalot/vscode-container-demo/tree/series/part-2-github-actions-intro) - GitHub Actions Introduction
 
 # Introduction
-This repo started as basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
+This repo started as a basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
 Originally, it was made using "[Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)" as the main source.
 
-Now, it is becoming a series and add little bits of technology along the way.
+Now, it is becoming a series and I'm going to add little bits of technology along the way.
 
 
 # Technology
@@ -19,7 +19,7 @@ The app is a .net core 3.1 app with React and a couple of JSON services. While t
 # Developer Environment
 This project was created with a Linux container that contains all the tools you need as a developer for this app. The [VS Code Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) extension is what enables this method of development.
 
-The goal is: Anyone with vscode and a docker host can open this code base and immediately start contributing without the hassle of installing tons of dependencies.
+Anyone with vscode and a docker host can open this code base and immediately start contributing without the hassle of installing tons of dependencies.
 
 Initial development was done on a Windows PC in a Linux container, but can also be done on a Mac or Linux PC.
 
@@ -84,7 +84,36 @@ code --remote wsl+Ubuntu-20.04 /mnt/d/path/to/vscode-container-demo
 
 
 # Azure Cloud and GitHub Actions
-### This is going to be broken out into another README
+Worth nothing that to actually run the github actions portion of this project, you'll need an azure account and a github account.
+Also worth noting that I am using a custom Docker image for the jobs in the GitHub workflow. So you'd need the credentials to my registery. 
+I'll probably parameterize that in the yaml file so you can substitute your own registry and credentials.
+
+Couple links:
+- I make use of the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) for interaction with Azure. It is included in the dev image / ci image.
+- GitHub Action Workflow Syntax [documentation](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
+- VSCode [ARM Templates Extension](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools) is helpful for working with ARM templates
+
+### commands that I used in this part of the series. Saving them here for reference.
+
+```
+az ad sp create-for-rbac --name CIServicePrincipal --role Contributor
+
+az login --service-principal --username <github secret> --password <github secret> --tenant <github secret>
+
+az account set --subscription <github secret>
+```
+### general pipeline flow
+
+```
+az deployment group create --name addwebapp --resource-group TechExchangeDemoGroup --template-file  /path/to/infra.json --parameters storagePrefix=dubsalot storageSKU=Standard_LRS webAppName=dubsalot
+
+dotnet publish --output cibuild
+
+cd cibuild
+
+az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name dubsalot --debug
+```
+
 - The workflow is stored in .github/main.yml
 - The jobs in the build depend on a custom container I use for dev tools. You can find that docker file under .ci/
 - The jobs pull dubsalot.azurecr.io/ci/azure from an my personal Azure Container Registry
