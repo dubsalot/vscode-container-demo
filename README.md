@@ -93,7 +93,7 @@ Couple links:
 - GitHub Action Workflow Syntax [documentation](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 - VSCode [ARM Templates Extension](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools) is helpful for working with ARM templates
 
-### commands that I used in this part of the series. Saving them here for reference.
+### commands that I used in this part of the series. saving them here for reference.
 
 ```
 az ad sp create-for-rbac --name CIServicePrincipal --role Contributor
