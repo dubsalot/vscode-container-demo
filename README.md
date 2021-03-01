@@ -84,7 +84,7 @@ code --remote wsl+Ubuntu-20.04 /mnt/d/path/to/vscode-container-demo
 
 
 # Azure Cloud and GitHub Actions
-Worth nothing that to actually run the github actions portion of this project, you'll need an azure account and a github account.
+Worth nothing that to run the github actions portion of this project, you'll need an azure account and a github account.
 Also worth noting that I am using a custom Docker image for the jobs in the GitHub workflow. So you'd need the credentials to my registery. 
 I'll probably parameterize that in the yaml file so you can substitute your own registry and credentials.
 
