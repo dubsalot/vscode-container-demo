@@ -71,7 +71,7 @@ jobs:
                                                  webAppName="$AZ_WEBAPP_NAME"
                                                  
   publish-site-test:
-    if: ${{ github.ref == 'refs/heads/develop' }}
+    if: ${{ startsWith(github.ref, 'refs/heads/feature/' ) }}
     name: deploy changes for automated tests
     environment:
       name: test
@@ -82,7 +82,20 @@ jobs:
       image: dubsalot.azurecr.io/ci/azure
       credentials:
         username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
-        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}  
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+
+  publish-site-test2:
+    if: ${{ startsWith(github.ref, 'refs/heads/feature/' ) }}
+    name: deploy changes for automated tests
+    environment:
+      name: test
+      url: "http://techexchange-test.azurewebsites.net/"    
+    runs-on: ubuntu-latest
+    container:
+      image: dubsalot.azurecr.io/ci/azure
+      credentials:
+        username: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+        password: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}            
         
     steps:
       - name: Download build artifacts
