@@ -122,7 +122,6 @@ jobs:
           az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip --slot qa          
           
   publish-site-prod:
-    if: ${{ github.ref == 'refs/heads/master' }}
     name: deploy changes for production
     environment:
       name: production
