@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-=======
-#   az login
-#   az acr login --name dubsalot.azurecr.io
-#   docker build -t ci/azure .
-#   docker tag ci/azure dubsalot.azurecr.io/ci/azure
-#   docker push dubsalot.azurecr.io/ci/azure
-#
-
-
-
->>>>>>> fefe36749fabccae188b3236396444d6dea41118
 # [Choice] .NET Core version: 3.1, 2.1
 ARG VARIANT="3.1"
 FROM mcr.microsoft.com/vscode/devcontainers/dotnetcore:0-${VARIANT}
@@ -52,18 +40,3 @@ RUN sudo apt install -y python3-pip
 RUN sudo pip3 install --system decorator
 
 RUN sudo npm install -y -g tfx-cli
-
-
-
-
-#   az login
-#   az acr login --name dubsalot.azurecr.io
-#   docker build -t ci/azure .
-#   docker tag ci/azure dubsalot.azurecr.io/ci/azure
-#   docker push dubsalot.azurecr.io/ci/azure
-#
-
-#
-#          az --version
-#          tfx --version
-#
