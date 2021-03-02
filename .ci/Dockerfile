@@ -40,18 +40,3 @@ RUN sudo apt install -y python3-pip
 RUN sudo pip3 install --system decorator
 
 RUN sudo npm install -y -g tfx-cli
-
-
-
-
-#   az login
-#   az acr login --name dubsalot.azurecr.io
-#   docker build -t ci/azure .
-#   docker tag ci/azure dubsalot.azurecr.io/ci/azure
-#   docker push dubsalot.azurecr.io/ci/azure
-#
-
-#
-#          az --version
-#          tfx --version
-#
