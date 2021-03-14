@@ -1,18 +1,22 @@
 # Tech Exchange Series
-This repo is a series of parts. Each part will build off of the previous part. If you're interested in contributing and presenting at Tech Exchange, let me know. I am taking applications :P
+This repo is a series of parts. Each is on an arbitray technology topic presented for the Tech Exchange presentation. Each part has its own branch in the repo and is merged into master before the Tech Exchange presentation.
+
+# Request for the Audience
+At some point I'd like to collaborate with some of you on a topic for TE. If that interests you and you have something in mind, let me know. 
 
 1. [Part 1](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container) - Use Visual Studio Code inside a container
 1. [Part 2](https://github.com/dubsalot/vscode-container-demo/tree/series/part-2-github-actions-intro) - GitHub Actions Introduction
+1. [Part 3] - TBD - This might be a deeper dive into ARM and Bicep from the Azure platform.
 
 # Introduction
-This repo started as a basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
+This repo started is a basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
 Originally, it was made using "[Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)" as the main source.
 
 Now, it is becoming a series and I'm going to add little bits of technology along the way.
 
 
 # Technology
-The app is a .net core 3.1 app with React and a couple of JSON services. While the application is meant to demo remote containers for vscode, you can also open the webui.sln Solution with Visual Studio 2019 from your Windows host
+The app is a .net core 3.1 app with React and a couple of JSON services. While the application is meant to demo remote containers for vscode, you can also open the webui.sln Solution with Visual Studio 2019 from your Windows host. I will likely replace the React app with Angular at some point.
 
 
 
