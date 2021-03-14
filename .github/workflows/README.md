@@ -11,7 +11,7 @@ You might be interested in these links if you ever use GHA:
 
 
 # Work in progress
-This repo does not have the purpose of being a blueprint or example for you to follow i.e not the same as the ALM base app repos. 
+This repo does not have the purpose of being a blueprint for anything. It does not have the same burdens/responsibiities as the ALM Example App repos for example.
 I'm not stating "this is definitely how you should accomplish implementing github actions"
 I'm using this as a sandbox to learn. It's a work in progress.
 
