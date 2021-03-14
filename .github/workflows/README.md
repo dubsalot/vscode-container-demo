@@ -1,23 +1,23 @@
-# Notes specific GitHub Actions
-
-
-
-
-### Composite actions
-Composites allow one to group a series of steps into one action. For example, a common pattern in your workflows is: step1, step2, step3 then step4. In this scenario, it possibly makes sense to put those 4 steps in a composite action. Your main workflow will now execute the composite action.
-- [info](https://docs.github.com/en/actions/creating-actions/creating-a-composite-run-steps-action)
-
 # Azure Cloud and GitHub Actions
-Worth nothing that to run the github actions portion of this project, you'll need an azure account and a github account.
+Worth noting that to run the github actions portion of this project, you'll need an azure account and a github account.
 Also worth noting that I am using a custom Docker image for the jobs in the GitHub workflow. So you'd need the credentials to my registery. 
-I'll probably parameterize that in the yaml file so you can substitute your own registry and credentials.
+I'll probably parameterize that in the yaml file so you can substitute your own registry and credentials, but it's a very simple change if you want to try it in your own repo. Let me know, and I'll try to help.
 
-Couple links:
+You might be interested in these links if you ever use GHA:
 - I make use of the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) for interaction with Azure. It is included in the dev image / ci image.
 - GitHub Action Workflow Syntax [documentation](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 - VSCode [ARM Templates Extension](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools) is helpful for working with ARM templates
 
-### commands that I used in this part of the series. saving them here for reference.
+
+
+# Work in progress
+This repo does not have the purpose of being a blueprint or example for you to follow i.e not the same as the ALM base app repos. 
+I'm not stating "this is definitely how you should accomplish implementing github actions"
+I'm using this as a sandbox to learn. It's a work in progress.
+
+
+### RBAC / "CIServicePrincipal"
+My workflows need to run in a context that gives them proper permissions to Azure.
 
 ```
 az ad sp create-for-rbac --name CIServicePrincipal --role Contributor
@@ -26,7 +26,9 @@ az login --service-principal --username <github secret> --password <github secre
 
 az account set --subscription <github secret>
 ```
-### general pipeline flow
+
+
+### Summary of this workflow
 
 ```
 az deployment group create --name addwebapp --resource-group TechExchangeDemoGroup --template-file  /path/to/infra.json --parameters storagePrefix=dubsalot storageSKU=Standard_LRS webAppName=dubsalot
