@@ -8,7 +8,7 @@ At some point I'd like to collaborate with some of you on a topic for TE. If tha
 1. [Part 2](https://github.com/dubsalot/vscode-container-demo/tree/series/part-2-github-actions-intro) - GitHub Actions Introduction
 1. Part 3 - TBD - This might be a deeper dive into ARM and Bicep from the Azure platform.
 
-Since this is Part 2, I put most of kept notes related to GitHub Actions in [.github/workflows](https://github.com/dubsalot/vscode-container-demo/blob/series/part-2-github-actions-intro/.github/workflows/README.md)
+I put most of my notes related to GitHub Actions in [.github/workflows](https://github.com/dubsalot/vscode-container-demo/blob/series/part-2-github-actions-intro/.github/workflows/README.md)
 
 # Introduction
 This repo started is a basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
