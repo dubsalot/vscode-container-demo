@@ -37,7 +37,11 @@ az account set --subscription <github secret>
 ### Summary of this workflow
 
 ```
-az deployment group create --name addwebapp --resource-group TechExchangeDemoGroup --template-file  /path/to/infra.json --parameters storagePrefix=dubsalot storageSKU=Standard_LRS webAppName=dubsalot
+az deployment group create 
+  --name addwebapp 
+  --resource-group TechExchangeDemoGroup 
+  --template-file  /path/to/infra.json 
+  --parameters storagePrefix=dubsalot storageSKU=Standard_LRS webAppName=dubsalot
 
 dotnet publish --output cibuild
 
