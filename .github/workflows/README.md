@@ -57,3 +57,27 @@ az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name dubsalot --debug
 The credentials are stored in GitHub Action Secrets:
 - AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
 - AZ_SVC_PRINCIPAL_PW: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+
+
+###  dubsalot.azurecr.io/ci/azure
+I don't like how long it takes to initialize a container for each job. It's _probably_ not a big deal in real world scenarios. I just feel that they could potentially build an image for JobA when JobB is running: At least some sort of deterministic strategy..
+
+[Eyar Zilberman](https://www.datree.io/resources/github-actions-best-practices) @ datree.io touches on this in a write-up he did for "best practices"
+
+
+# Composite actions
+[Composites](https://docs.github.com/en/actions/creating-actions/creating-a-composite-run-steps-action) allow one to group a series of steps into one action. For example, a common pattern in your workflows is: step1, step2, step3 then step4. In this scenario, it possibly makes sense to put those 4 steps in a composite action. Your main workflow will now execute the composite action.
+
+
+### on that note..
+
+There is a thing called [Azure Stack](https://github.com/Azure/login#sample-azure-login-workflow-that-to-run-az-cli-on-azure-stack-hub/?WT.mc_id=devopslab-c9-cxa) that simplifies interaction with Azure cloud from GHA.
+
+On one hand, what I did using the az CLI was simple enough and it was good for me personally speaking to start with learning basics.
+On the other, it makes a lot of sense to use the "official" components designed for this scenario.
+
+
+# Feedback
+I'd like some feedback from you devs and people with more docker/ocp experience. A loose idea/direction I am playing with is to use the same container image that runs my dev environment for the CI/CD portion of the workflows. This is the image from [part 1](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container) of this series. Seems a little funky having vscode in a container used in a pipeline, but I still haven't convinced myself it's a bad idea.
+
+As of now, it's essentially the same image. The Dockerfile for the image (dubsalot.azurecr.io/ci/azure) was copied from the vscode demo
