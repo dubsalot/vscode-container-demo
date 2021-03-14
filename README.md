@@ -6,7 +6,7 @@ At some point I'd like to collaborate with some of you on a topic for TE. If tha
 
 1. [Part 1](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container) - Use Visual Studio Code inside a container
 1. [Part 2](https://github.com/dubsalot/vscode-container-demo/tree/series/part-2-github-actions-intro) - GitHub Actions Introduction
-1. Part 3 - TBD - This might be a deeper dive into ARM and Bicep from the Azure platform.
+1. Part 3 - TBD - I'm leaning towards ARM and Bicep deployments to Kubernetes or OpenShift
 
 I put most of my notes related to GitHub Actions in [.github/workflows](https://github.com/dubsalot/vscode-container-demo/blob/series/part-2-github-actions-intro/.github/workflows/README.md)
 
