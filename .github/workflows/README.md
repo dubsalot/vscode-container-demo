@@ -23,7 +23,7 @@ This repo does not have the purpose of being a blueprint for anything. It does n
 
 
 ### RBAC / "CIServicePrincipal"
-My workflows need to run in a context that gives them proper permissions to Azure.
+My workflows need to run in a context that gives them proper permissions to my Azure tenant.
 
 ```
 az ad sp create-for-rbac --name CIServicePrincipal --role Contributor
@@ -71,13 +71,18 @@ I don't like how long it takes to initialize a container for each job. It's _pro
 
 ### on that note..
 
-There is a thing called [Azure Stack](https://github.com/Azure/login#sample-azure-login-workflow-that-to-run-az-cli-on-azure-stack-hub/?WT.mc_id=devopslab-c9-cxa) that simplifies interaction with Azure cloud from GHA.
+There is a thing called [Azure Stack](https://github.com/Azure/login#sample-azure-login-workflow-that-to-run-az-cli-on-azure-stack-hub/?WT.mc_id=devopslab-c9-cxa) that simplifies interaction with Azure cloud from GHA. For example, it probably makes sense to use the [azure/login@releases/v1](https://docs.microsoft.com/en-us/azure-stack/user/ci-cd-github-action-login-cli?WT.mc_id=devopslab-c9-cxa&view=azs-2008) instead of calling **az login**
+
 
 On one hand, what I did using the az CLI was simple enough and it was good for me personally speaking to start with learning basics.
 On the other, it makes a lot of sense to use the "official" components designed for this scenario.
 
 
+# Quickstart Workflows
+GitHub offers [guidance](https://docs.github.com/en/actions/guides) on pre-built [quickstart templates](https://github.com/actions/starter-workflows) for many common ci/cd patters.
+
+
 # Feedback
-I'd like some feedback from you devs and people with more docker/ocp experience. A loose idea/direction I am playing with is to use the same container image that runs my dev environment for the CI/CD portion of the workflows. This is the image from [part 1](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container) of this series. Seems a little funky having vscode in a container used in a pipeline, but I still haven't convinced myself it's a bad idea.
+I'd like some feedback from devs and people with more docker/ocp experience. A loose idea/direction I am playing with is to use the same container image that runs my dev environment for the CI/CD portion of the workflows. This is the image from [part 1](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container) of this series. Seems a little funky having vscode in a container used in a pipeline, but I still haven't convinced myself it's a bad idea.
 
 As of now, it's essentially the same image. The Dockerfile for the image (dubsalot.azurecr.io/ci/azure) was copied from the vscode demo
