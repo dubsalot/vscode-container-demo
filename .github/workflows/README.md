@@ -8,6 +8,10 @@ You might be interested in these links if you ever use GHA:
 - GitHub Action Workflow Syntax [documentation](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 - VSCode [ARM Templates Extension](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools) is helpful for working with ARM templates
 
+### Similar Repo + Presentations
+Coming from a little closer to the source, I have recently found a repositorty + presentations by [Aaron Powell](https://github.com/aaronpowell) at GitHub.
+* [repositories](https://github.com/AaronPowellDemos)
+* [intro video](https://youtu.be/0tMkRSdp-Go)
 
 
 # This is sandbox
@@ -18,12 +22,6 @@ This repo does not have the purpose of being a blueprint for anything. It does n
 
 👍 "this is my current understanding of 'hello world' in GitHub actions"
 
-
-
-# Similar Repo + Presentations
-Coming from a little closer to the source, I have recently found a repositorty + presentations by [Aaron Powell](https://github.com/aaronpowell) at GitHub.
-* [repositories](https://github.com/AaronPowellDemos)
-* [intro video](https://youtu.be/0tMkRSdp-Go)
 
 
 ### RBAC / "CIServicePrincipal"
