@@ -20,6 +20,10 @@ This repo does not have the purpose of being a blueprint for anything. It does n
 
 
 
+# Similar Repo + Presentations
+Coming from a little closer to the source, I have recently found a repositorty + presentations by [Aaron Powell](https://github.com/aaronpowell) at GitHub.
+* [repositories](https://github.com/AaronPowellDemos)
+* [intro video](https://youtu.be/0tMkRSdp-Go)
 
 
 ### RBAC / "CIServicePrincipal"
