@@ -22,4 +22,4 @@ jobs:
     name: Running a heatth check on the site to see if it's up and responding
     runs-on: ubuntu-latest
     steps:
-    - run: echo website returned 200 OK
+    - run: echo website returned 200 OK         #this is just for demo purposes
