@@ -1,8 +1,5 @@
 # Tech Exchange Series
-This repo is a series of parts. Each is on an arbitray technology topic presented for the Tech Exchange presentation. Each part has its own branch in the repo and is merged into master before the Tech Exchange presentation.
-
-# Request for the Audience
-At some point I'd like to collaborate with some of you on a topic for TE. If that interests you and you have something in mind, let me know. 
+This repo is a series of parts. Each part will build off of the previous part. If you're interested in contributing and presenting at Tech Exchange, let me know. I am taking applications :P
 
 1. [Part 1](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container) - Use Visual Studio Code inside a container
 1. [Part 2](https://github.com/dubsalot/vscode-container-demo/tree/series/part-2-github-actions-intro) - GitHub Actions Introduction
@@ -11,7 +8,7 @@ At some point I'd like to collaborate with some of you on a topic for TE. If tha
 I put most of my notes related to GitHub Actions in [.github/workflows](https://github.com/dubsalot/vscode-container-demo/blob/series/part-2-github-actions-intro/.github/workflows/README.md)
 
 # Introduction
-This repo started is a basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
+This repo started as a basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
 Originally, it was made using "[Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)" as the main source.
 
 Now, it is becoming a series and I'm going to add little bits of technology along the way.
@@ -35,8 +32,7 @@ Initial development was done on a Windows PC in a Linux container, but can also 
 1.	Windows Subsystem for Linux<sup>**</sup> [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 <sup><sup>
-\* &nbsp;  You'll need to find something compatible with your Linux distrubution  
-** WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.  
+WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.  
 </sup></sup>
 
 
