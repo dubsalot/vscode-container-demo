@@ -1,6 +1,7 @@
 # purpose is to spin up small instance of this application, and run smoke tests.
 # Any PR to develop will trigger this.
 # That way, the PR only completes if our tests pass
+# trying to trigger
 name: Deploy Commit to Azure
 
 on:
@@ -22,4 +23,4 @@ jobs:
     name: Running automated smoke tests
     runs-on: ubuntu-latest
     steps:
-    - run: echo everything looks good
+    - run: echo everything looks good   #  obviously, this is just for demo purposes
