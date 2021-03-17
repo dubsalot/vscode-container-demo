@@ -12,7 +12,7 @@ Now, it is becoming a series and I'm going to add little bits of technology alon
 
 
 # Technology
-The app is a .net core 3.1 app with React and a couple of JSON services. While the application is meant to demo remote containers for vscode, you can also open the webui.sln Solution with Visual Studio 2019 from your Windows host
+The app is a .net core 3.1 app with React and a couple of JSON services. While the application is meant to demo remote containers for vscode, you can also open the webui.sln Solution with Visual Studio 2019 from your Windows host. I will likely replace the React app with Angular at some point.
 
 
 

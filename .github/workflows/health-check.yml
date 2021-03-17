@@ -1,0 +1,25 @@
+name: Check Health of Website
+
+on:
+  schedule:
+    - cron:  '*/30 * * * *'
+    # POSIX cron syntax: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
+    # if ever find your self using this, and are new to cron this site will help you: https://crontab.guru/examples.html
+    # if you are familiar with cron, ^ that site will likely stil help you :)
+  workflow_dispatch:
+
+env:
+  AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+  AZ_SVC_PRINCIPAL_PW: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+  AZ_SUBSCRIPTION_TENANT: ${{ secrets.AZ_SUBSCRIPTION_TENANT }}
+  AZ_RESOURCE_GROUP: "TechExchangeDemoGroup"
+  AZ_LOCATION: "South Central US"
+  GH_RUN_ID: ${{ github.run_id }}
+  AZ_WEBAPP_NAME: techexchange
+
+jobs:
+  see_if_a_url_returns_ok:
+    name: Running a heatth check on the site to see if it's up and responding
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo website returned 200 OK         #this is just for demo purposes

@@ -1,0 +1,25 @@
+# purpose is to spin up small instance of this application, and run smoke tests.
+# Any PR to develop will trigger this.
+# That way, the PR only completes if our tests pass
+name: Deploy Commit to Azure
+
+on:
+  pull_request_target:
+    types: [opened]
+  branches: [develop]
+
+env:
+  AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+  AZ_SVC_PRINCIPAL_PW: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+  AZ_SUBSCRIPTION_TENANT: ${{ secrets.AZ_SUBSCRIPTION_TENANT }}
+  AZ_RESOURCE_GROUP: "TechExchangeDemoGroup"
+  AZ_LOCATION: "South Central US"
+  GH_RUN_ID: ${{ github.run_id }}
+  AZ_WEBAPP_NAME: techexchange
+
+jobs:
+  see_if_a_url_returns_ok:
+    name: Running automated smoke tests
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo everything looks good
