@@ -22,4 +22,4 @@ jobs:
     name: Running automated smoke tests
     runs-on: ubuntu-latest
     steps:
-    - run: echo everything looks good
+    - run: echo everything looks good   #  obviously, this is just for demo purposes
