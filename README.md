@@ -29,8 +29,7 @@ Initial development was done on a Windows PC in a Linux container, but can also 
 1.	Windows Subsystem for Linux<sup>**</sup> [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 <sup><sup>
-\* &nbsp;  You'll need to find something compatible with your Linux distrubution  
-** WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.  
+WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.  
 </sup></sup>
 
 
