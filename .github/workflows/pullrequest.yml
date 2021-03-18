@@ -1,0 +1,22 @@
+##  Need to re-think this: https://docs.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token
+
+  
+
+# name: Deploy To PR-Specific Environment
+
+# on:
+#   pull_request:
+#     types: [opened, synchronize, reopened]
+
+# env:
+#   AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+#   AZ_SVC_PRINCIPAL_PW: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+#   AZ_SUBSCRIPTION_TENANT: ${{ secrets.AZ_SUBSCRIPTION_TENANT }}
+
+
+# jobs:
+#   see_if_a_url_returns_ok:
+#     name: Running a heatth check on the site to see if it's up and responding
+#     runs-on: ubuntu-latest
+#     steps:
+#     - run: echo website returned 200 OK         #this is just for demo purposes

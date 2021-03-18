@@ -119,9 +119,18 @@ jobs:
         name: upload website to app service
         run: |
           az login --service-principal --username "$AZ_SVC_PRINCIPAL_UN" --password "$AZ_SVC_PRINCIPAL_PW" --tenant "$AZ_SUBSCRIPTION_TENANT"
-          az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip --slot qa          
-          
-  publish-site-prod:
+          az webapp deployment source config-zip --resource-group $AZ_RESOURCE_GROUP --name $AZ_WEBAPP_NAME --src ./cibuild.zip --slot qa
+
+#==============================================================================
+# leaving this in but commented how to use other publically available actions
+# https://github.com/hashicorp/setup-terraform
+#==============================================================================
+#
+#      - uses: hashicorp/setup-terraform@v1       
+#        with:
+#          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}          
+                
+  publish-site-prod:  
     if: ${{ github.ref == 'refs/heads/master' }}
     name: deploy changes for production
     environment:
