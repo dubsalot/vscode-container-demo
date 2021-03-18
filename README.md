@@ -8,7 +8,7 @@ This repo is a series of parts. Each part will build off of the previous part. L
 I put most of my notes related to GitHub Actions in [.github/workflows](https://github.com/dubsalot/vscode-container-demo/blob/series/part-2-github-actions-intro/.github/workflows/README.md)
 
 # Introduction
-This repo started as a basic hello-world introduction to using the Remote Development Containers extension for Visual Studio Code to develop inside a container.
+This repo started as a basic hello-world introduction to the Remote Development Containers extension for Visual Studio Code to develop inside a container.
 Originally, it was made using "[Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)" as the main source.
 
 Now, it is becoming a series and I'm going to add little bits of technology along the way.
