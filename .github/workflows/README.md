@@ -66,12 +66,12 @@ az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name dubsalot --debug
 
 
 ###  dubsalot.azurecr.io/ci/azure
-I don't like how long it takes to initialize a container for each job. It's _probably_ not a big deal in real world scenarios. I just feel that they could potentially build an image for JobA when JobB is running: At least some sort of deterministic strategy..
+I don't like how long it takes to initialize a container for each job. It's _probably_ not a big deal in real world scenarios. I feel that they could potentially build an image for JobA when JobB is running: At least some sort of deterministic strategy..
 
 [Eyar Zilberman](https://www.datree.io/resources/github-actions-best-practices) @ datree.io touches on this in a write-up he did for "best practices"
 
 
-# Composite actions
+# Composite Actions
 [Composites](https://docs.github.com/en/actions/creating-actions/creating-a-composite-run-steps-action) allow one to group a series of steps into one action. For example, a common pattern in your workflows is: step1, step2, step3 then step4. In this scenario, it possibly makes sense to put those 4 steps in a composite action. Your main workflow will now execute the composite action.
 
 
