@@ -25,8 +25,8 @@ I'm using this as a sandbox to learn. It's a work in progress. I welcome any sug
 
 
 
-### RBAC / "CIServicePrincipal"
-My workflows need to run in a context that gives them proper permissions to my Azure tenant.
+### Azure Credentials "ServicePrincipal"
+My workflows need to run in a context that gives them proper permissions to my Azure tenant. The output of these commands displays the credentials. You'll need to store those securely so that your workflow cann use them. I chose GitHub [Secrets for this repo](https://github.com/dubsalot/vscode-container-demo/settings/secrets/actions), but one could use Hashicorp Vault here.
 
 ```
 az ad sp create-for-rbac --name CIServicePrincipal --role Contributor
