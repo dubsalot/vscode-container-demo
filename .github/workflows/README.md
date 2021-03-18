@@ -28,6 +28,12 @@ I'm using this as a sandbox to learn. It's a work in progress. I welcome any sug
 ### Azure Credentials "ServicePrincipal"
 My workflows need to run in a context that gives them proper permissions to my Azure tenant. The output of these commands displays the credentials. You'll need to store those securely so that your workflow cann use them. I chose GitHub [Secrets for this repo](https://github.com/dubsalot/vscode-container-demo/settings/secrets/actions), but one could use Hashicorp Vault here.
 
+You can find them referenced in the workflow like:
+```
+- AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
+- AZ_SVC_PRINCIPAL_PW: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+```
+Commands I used to set that up.
 ```
 az ad sp create-for-rbac --name CIServicePrincipal --role Contributor
 
@@ -35,7 +41,6 @@ az login --service-principal --username <github secret> --password <github secre
 
 az account set --subscription <github secret>
 ```
-
 
 ### Summary of this workflow
 
@@ -53,13 +58,11 @@ cd cibuild
 az webapp up --runtime "DOTNETCORE|3.1" --os Linux --name dubsalot --debug
 ```
 
-- The workflow is stored in .github/main.yml
+- The workflow is stored in [.github/main.yml](https://github.com/dubsalot/vscode-container-demo/blob/master/.github/workflows/main.yml)
 - The jobs in the build depend on a custom container I use for dev tools. You can find that docker file under .ci/
 - The jobs pull dubsalot.azurecr.io/ci/azure from an my personal Azure Container Registry
 
-The credentials are stored in GitHub Action Secrets:
-- AZ_SVC_PRINCIPAL_UN: ${{ secrets.AZ_SVC_PRINCIPAL_UN }}
-- AZ_SVC_PRINCIPAL_PW: ${{ secrets.AZ_SVC_PRINCIPAL_PW }}
+
 
 
 ###  dubsalot.azurecr.io/ci/azure
