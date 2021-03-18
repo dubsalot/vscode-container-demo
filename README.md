@@ -11,20 +11,17 @@ I put most of my notes related to GitHub Actions in [.github/workflows](https://
 This repo started as a basic hello-world introduction to the Remote Development Containers extension for Visual Studio Code to develop inside a container.
 Originally, it was made using "[Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)" as the main source.
 
-Now, it is becoming a series and I'm going to add little bits of technology along the way.
+I would like to make a series out of this repo and add little bits of technology along the way.
 
 
 # Technology
-The app is a .net core 3.1 app with React and a couple of JSON services. While the application is meant to demo remote containers for vscode, you can also open the webui.sln Solution with Visual Studio 2019 from your Windows host. I will likely replace the React app with Angular at some point.
-
+The app is a .net core 3.1 app with React and a couple of JSON services. The application source code is opened with vscode in a Linuix containe. Howewver, one can also use Visual Studio 2019 from a Windows host.
 
 
 # Developer Environment
-This project was created with a Linux container that contains all the tools you need as a developer for this app. The [VS Code Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) extension is what enables this method of development.
+This project was created with a Linux container. The container image has all the tools you need as a developer to maintain the application. The [VS Code Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) extension is what enables this method of development.
 
-Anyone with vscode and a docker host can open this code base and immediately start contributing without the hassle of installing tons of dependencies.
-
-Initial development was done on a Windows PC in a Linux container, but can also be done on a Mac or Linux PC.
+Anyone with vscode and a docker host can open this code base and immediately start contributing without the hassle of installing dependencies.
 
 1.	Visual Studio Code - [https://code.visualstudio.com/](https://code.visualstudio.com/)
 1.	Docker Desktop (Windows and macOS) [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
@@ -38,10 +35,9 @@ WSL2 is much preferred. WSL2 requires Windows 10 1903 or better.
 
 
 #### VS Code Extensions
-Technically, you only need the Remote Containers extension, but the others are useful. Extensions will run locally or in the container for your development environment. You can grab all 3 remote extensions at once by installing [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack).
+Technically, you only need the Remote Containers extension, but the others are useful. You can grab all 3 remote extensions at once by installing [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack).
 
-
-Local vs. Remote extension is an important detail. For example, if you are developing a C# application, the OmniSharp extension would be installed in the container because that is where the C#/.net work is being done. On the other hand, other extensions like Themes and Remote Container are installed locally.
+Extensions will either run locally on your host PC, or they will run in the container. This is an important detail. If you are developing a C# application, the OmniSharp extension would be installed in the container because that is where the C#/.net work is being done. On the other hand, other extensions like Themes and Remote Container are installed locally.
 
 Extension needed for remote container development
 1. [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
