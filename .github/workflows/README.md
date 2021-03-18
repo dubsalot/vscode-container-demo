@@ -10,9 +10,10 @@ You might be interested in these links if you ever use GHA:
 - VSCode [ARM Templates Extension](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools) is helpful for working with ARM templates
 
 ### Similar Repo + Presentations
-Coming from a little closer to the source, I have recently found a repositorty + presentations by [Aaron Powell](https://github.com/aaronpowell) at GitHub.
+Near the end of putting this together, I have stumbled onto a repositorty + presentations by [Aaron Powell](https://github.com/aaronpowell) at GitHub.
 * [repositories](https://github.com/AaronPowellDemos)
 * [intro video](https://youtu.be/0tMkRSdp-Go)
+You might find his stuff helpful, so check him out.
 
 
 # This is sandbox
