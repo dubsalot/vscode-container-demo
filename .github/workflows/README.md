@@ -80,12 +80,8 @@ I don't like how long it takes to initialize a container for each job. It's _pro
 There is a thing called [Azure Stack](https://github.com/Azure/login#sample-azure-login-workflow-that-to-run-az-cli-on-azure-stack-hub/?WT.mc_id=devopslab-c9-cxa) that simplifies interaction with Azure cloud from GHA. For example, it probably makes sense to use the [azure/login@releases/v1](https://docs.microsoft.com/en-us/azure-stack/user/ci-cd-github-action-login-cli?WT.mc_id=devopslab-c9-cxa&view=azs-2008) instead of calling **az login**
 
 
-On one hand, what I did using the az CLI was simple enough and it was good for me personally speaking to start with learning basics.
-On the other, it makes a lot of sense to use the "official" components designed for this scenario.
-
-
 # Quickstart Workflows
-GitHub offers [guidance](https://docs.github.com/en/actions/guides) on pre-built [quickstart templates](https://github.com/actions/starter-workflows) for many common ci/cd patters.
+GitHub offers [guidance](https://docs.github.com/en/actions/guides) on pre-built [quickstart templates](https://github.com/actions/starter-workflows) for many common CI/CD patters.
 
 
 # Feedback
