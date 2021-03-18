@@ -5,7 +5,7 @@ Just make note that if you would like to fork this repo, you're going to need so
 Also worth noting that I am using a custom Docker image for the jobs in the GitHub workflow. So you'd need the credentials to my registery. 
 I'll probably parameterize that in the yaml file so you can substitute your own registry and credentials, but it's a very simple change if you want to try it in your own repo. 
 You might be interested in these links if you ever use GHA:
-- I make use of the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) for interaction with Azure. It is included in the dev image / ci image.
+- I make use of the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) for interaction with Azure. It is included in the dev image / CI image.
 - GitHub Action Workflow Syntax [documentation](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 - VSCode [ARM Templates Extension](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools) is helpful for working with ARM templates
 
