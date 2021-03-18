@@ -1,8 +1,9 @@
 # Azure Cloud and GitHub Actions
-Worth noting that to run the github actions portion of this project, you'll need an azure account and a github account.
-Also worth noting that I am using a custom Docker image for the jobs in the GitHub workflow. So you'd need the credentials to my registery. 
-I'll probably parameterize that in the yaml file so you can substitute your own registry and credentials, but it's a very simple change if you want to try it in your own repo. Let me know, and I'll try to help.
+The topic of this presentation is GitHub Actions. The goal is to show some of the basic functionality. In order to accomplish, I'm deplopying the application and its current ""infrastructure" to Azure
 
+Just make note that if you would like to fork this repo, you're going to need some Azure compute and some credentials.
+Also worth noting that I am using a custom Docker image for the jobs in the GitHub workflow. So you'd need the credentials to my registery. 
+I'll probably parameterize that in the yaml file so you can substitute your own registry and credentials, but it's a very simple change if you want to try it in your own repo. 
 You might be interested in these links if you ever use GHA:
 - I make use of the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) for interaction with Azure. It is included in the dev image / ci image.
 - GitHub Action Workflow Syntax [documentation](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
