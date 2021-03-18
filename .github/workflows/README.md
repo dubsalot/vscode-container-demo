@@ -1,5 +1,5 @@
 # Azure Cloud and GitHub Actions
-The topic of this presentation is GitHub Actions. The goal is to show some of the basic functionality. In order to accomplish, I'm deplopying the application and its current ""infrastructure" to Azure
+The topic of this presentation is GitHub Actions. The goal is to show some of the basic functionality. In order to accomplish, I'm deplopying the application and its current "infrastructure" to Azure
 
 Just make note that if you would like to fork this repo, you're going to need some Azure compute and some credentials.
 Also worth noting that I am using a custom Docker image for the jobs in the GitHub workflow. So you'd need the credentials to my registery. 
@@ -85,6 +85,7 @@ GitHub offers [guidance](https://docs.github.com/en/actions/guides) on pre-built
 
 
 # Feedback
-I'd like some feedback from devs and people with more docker/ocp experience. A loose idea/direction I am playing with is to use the same container image that runs my dev environment for the CI/CD portion of the workflows. This is the image from [part 1](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container) of this series. Seems a little funky having vscode in a container used in a pipeline, but I still haven't convinced myself it's a bad idea.
+I'd like to hear some feedback from devs and people with more docker/ocp experience. An idea I am playing with is to use the same container image that runs my dev environment for the CI/CD portion of the workflows. This is the image from [part 1](https://github.com/dubsalot/vscode-container-demo/tree/series/part-1-vscode-container). 
+
 
 As of now, it's essentially the same image. The Dockerfile for the image (dubsalot.azurecr.io/ci/azure) was copied from the vscode demo
