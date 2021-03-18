@@ -17,8 +17,7 @@ You might find his stuff helpful, so check him out.
 
 
 # This is sandbox
-I'm using this as a sandbox to learn. It's a work in progress, and I welcome any suggestions/participation.
-This repo does not have the purpose of being a blueprint for anything. It does not have the same burdens/responsibiities as the ALM Example App repos for example.  
+I'm using this as a sandbox to learn. It's a work in progress. I welcome any suggestions. Especially if you're bring offering to participate as well.
 
 👎 ~~"this is definitely how you should implement github actions"~~
 
