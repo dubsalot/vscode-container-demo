@@ -16,7 +16,7 @@
     "reactstrap": "^6.3.0"
   },
   "devDependencies": {
-    "ajv": "^6.9.1",
+    "ajv": "^6.12.3",
     "caniuse-lite": "^1.0.30001165",
     "cross-env": "^5.2.0",
     "eslint": "^5.12.0",
