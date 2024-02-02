@@ -35,6 +35,13 @@ namespace webui.Controllers
                 ProcessorArchitecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString()
             };
         }
+
+        [HttpGet]
+        [Route("[controller]/[action]")]
+        public List<Person> CodeScanCheck()
+        {
+            return new List<Person>();
+        }        
     }
 
     public class Person
